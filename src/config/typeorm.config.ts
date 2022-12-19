@@ -1,11 +1,14 @@
+/* eslint-disable quote-props */
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import {
+import type {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { config } from './config';
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
+  imports: [ConfigModule],
+  inject: [ConfigService],
   useFactory: async (): Promise<TypeOrmModuleOptions> => {
     return {
       type: 'postgres',
@@ -14,10 +17,10 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: config.db.user,
       password: config.db.password,
       database: config.db.name,
-      synchronize: false,
-      logging: false,
       entities: [`${__dirname}/../db/entities/*`],
       migrations: [`${__dirname}/../db/migrations/*`],
+      synchronize: false,
+      logging: false,
     };
   },
 };

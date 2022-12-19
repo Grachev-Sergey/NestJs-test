@@ -1,4 +1,3 @@
-export class updateUserEmailDto {
-  readonly id: number;
+export class UpdateUserEmailDto {
   readonly newEmail: string;
 }

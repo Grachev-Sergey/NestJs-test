@@ -1,25 +1,26 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
 import { User } from 'src/db/entities/user.entity';
-import { CreateUserDto } from './dto/createUser.dto';
-import { updateUserEmailDto } from './dto/updateUserEmai.dto';
+import type { CreateUserDto } from './dto/createUser.dto';
+import type { UpdateUserEmailDto } from './dto/updateUserEmai.dto';
+import type { UpdateUserPasslDto } from './dto/updateUserPass.dto';
 
 @Injectable()
 export class UsersService {
-
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>
-    ) {}
+    private userRepository: Repository<User>,
+  ) {}
 
   async createUser(dto: CreateUserDto): Promise<User> {
     const { email, password } = dto;
-    // const checkUniq = await this.userRepository.findOneBy({ email });
-    // if (checkUniq) {
-    //   throw customError(StatusCodes.BAD_REQUEST, errorsMessage.EMAIL_USED);
-    // }
+    const checkUniq = await this.userRepository.findOneBy({ email });
+
+    if (checkUniq) {
+      throw new HttpException('Email is used', HttpStatus.BAD_REQUEST);
+    }
     const user = new User();
     user.email = email;
     user.password = password;
@@ -35,31 +36,73 @@ export class UsersService {
     return allUsers;
   }
 
-  async getOneUser(id: number): Promise<User> {
+  async getOneUser(userId: string): Promise<User> {
+    const id = Number(userId);
     const user = await this.userRepository.findOneBy({ id });
 
-    // if (!user) {
-    //   throw customError(StatusCodes.NOT_FOUND, errorsMessage.USER_NOT_FOUND);
-    // }
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
 
     return user;
   }
 
-  async deleteUser(id: number) {
+  async deleteUser(userId: string) {
+    const id = Number(userId);
     const user = await this.userRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
     await this.userRepository.remove(user);
   }
 
-  async updateUserEmail(dto: updateUserEmailDto): Promise<User> {
-    const { newEmail, id } = dto;
+  async updateUserEmail(
+    dto: UpdateUserEmailDto,
+    userId: string,
+  ): Promise<User> {
+    const { newEmail } = dto;
+    const id = Number(userId);
     const user = await this.userRepository.findOneBy({ id });
 
-    // if (!user) {
-    //   throw customError(StatusCodes.NOT_FOUND, errorsMessage.USER_NOT_FOUND);
-    // }
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
 
     user.email = newEmail;
     await this.userRepository.save(user);
+    return user;
+  }
+
+  async updateUserPass(dto: UpdateUserPasslDto, userId: string): Promise<User> {
+    const { password, newPassword } = dto;
+    const id = Number(userId);
+    const user = await this.userRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    const currentUserPass = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id = :id', { id })
+      .select('user.password')
+      .getRawOne();
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const validPass = bcrypt.compareSync(
+      password,
+      currentUserPass.user_password,
+    );
+
+    if (!validPass) {
+      throw new HttpException('Wrong password', HttpStatus.BAD_REQUEST);
+    }
+
+    user.password = bcrypt.hashSync(newPassword, 5);
+    await this.userRepository.save(user);
+    delete user.password;
     return user;
   }
 }

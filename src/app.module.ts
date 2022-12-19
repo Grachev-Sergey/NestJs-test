@@ -1,7 +1,8 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { typeOrmAsyncConfig } from "./config/typeorm.config";
+/* eslint-disable quote-props */
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { typeOrmAsyncConfig } from './config/typeorm.config';
 import { UsersModule } from './users/users.module';
 
 @Module({
@@ -9,10 +10,10 @@ import { UsersModule } from './users/users.module';
   providers: [],
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env'
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     UsersModule,
-  ]
+  ],
 })
 export class AppModule {}

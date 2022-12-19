@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+/* eslint-disable quote-props */
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -16,10 +23,4 @@ export class User {
 
   @Column({ type: 'varchar', select: false, nullable: false })
   password: string;
-
-  @Column({ type: 'boolean', default: false })
-  banned: boolean;
-
-  @Column({ type: 'varchar', nullable: true })
-  banReason: string;
 }

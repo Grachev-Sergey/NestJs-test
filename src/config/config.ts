@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable quote-props */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
