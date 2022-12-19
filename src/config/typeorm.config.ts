@@ -1,4 +1,3 @@
-/* eslint-disable quote-props */
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import type {
   TypeOrmModuleAsyncOptions,

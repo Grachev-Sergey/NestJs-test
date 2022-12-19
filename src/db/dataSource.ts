@@ -1,4 +1,3 @@
-/* eslint-disable quote-props */
 import { DataSource } from 'typeorm';
 import { config } from '../config';
 

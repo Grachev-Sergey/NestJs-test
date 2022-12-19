@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcryptjs';
 import { Repository } from 'typeorm';
 import { User } from 'src/db/entities/user.entity';
-import type { CreateUserDto } from './dto/createUser.dto';
 import type { UpdateUserEmailDto } from './dto/updateUserEmai.dto';
 import type { UpdateUserPasslDto } from './dto/updateUserPass.dto';
 
@@ -13,23 +12,6 @@ export class UsersService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-
-  async createUser(dto: CreateUserDto): Promise<User> {
-    const { email, password } = dto;
-    const checkUniq = await this.userRepository.findOneBy({ email });
-
-    if (checkUniq) {
-      throw new HttpException('Email is used', HttpStatus.BAD_REQUEST);
-    }
-    const user = new User();
-    user.email = email;
-    user.password = password;
-    user.password = bcrypt.hashSync(password, 5);
-    await this.userRepository.save(user);
-    // const token = generateToken(user.id);
-    delete user.password;
-    return user;
-  }
 
   async getAllUsers(): Promise<User[]> {
     const allUsers = await this.userRepository.find();
@@ -103,6 +85,11 @@ export class UsersService {
     user.password = bcrypt.hashSync(newPassword, 5);
     await this.userRepository.save(user);
     delete user.password;
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.findOneBy({ email });
     return user;
   }
 }

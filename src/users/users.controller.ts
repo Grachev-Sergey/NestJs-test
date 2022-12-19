@@ -1,6 +1,6 @@
+/* eslint-disable prettier/prettier */
 import {
   Controller,
-  Post,
   Get,
   Body,
   Patch,
@@ -9,7 +9,6 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserEmailDto } from './dto/updateUserEmai.dto';
 import { UpdateUserPasslDto } from './dto/updateUserPass.dto';
 import { UsersService } from './users.service';
@@ -17,11 +16,6 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
-
-  @Post()
-  create(@Body() userDto: CreateUserDto) {
-    return this.usersService.createUser(userDto);
-  }
 
   @Get('all')
   getAll() {

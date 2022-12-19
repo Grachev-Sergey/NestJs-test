@@ -1,4 +1,3 @@
-/* eslint-disable quote-props */
 import {
   Entity,
   Column,
