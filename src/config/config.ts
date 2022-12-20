@@ -1,9 +1,12 @@
-/* eslint-disable prettier/prettier */
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-const localEnv = dotenv.config({ path: path.normalize(`${__dirname}/../../.env`) }).parsed;
-const defaultEnv = dotenv.config({ path: path.normalize(`${__dirname}/../../default.env`) }).parsed;
+const localEnv = dotenv.config({
+  path: path.normalize(`${__dirname}/../../.env`),
+}).parsed;
+const defaultEnv = dotenv.config({
+  path: path.normalize(`${__dirname}/../../default.env`),
+}).parsed;
 
 const combinedEnv = {
   ...defaultEnv,
@@ -21,4 +24,9 @@ export const config = {
     host: combinedEnv.POSTGRES_HOST,
     port: Number(combinedEnv.POSTGRES_PORT),
   },
+  token: {
+    secretKey: combinedEnv.TOKEN_SEKRET_KEY,
+    expiresIn: combinedEnv.TOKEN_EXPIRES_IN,
+  },
+  salt: Number(combinedEnv.salt),
 };

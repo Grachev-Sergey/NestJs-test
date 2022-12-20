@@ -37,7 +37,7 @@ module.exports = {
     'react/display-name': 'off',
     'consistent-return': 'off',
     'function-paren-newline': ['error', 'consistent'],
-    'quote-props': 2,
+    'quote-props': 0,
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/extensions': 0,
     'import/no-extraneous-dependencies': 'off',
