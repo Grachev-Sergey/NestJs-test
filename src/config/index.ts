@@ -15,7 +15,7 @@ const combinedEnv = {
 
 dotenv.config();
 
-export const config = {
+export default {
   serverPort: Number(combinedEnv.PORT),
   db: {
     name: combinedEnv.POSTGRES_DB,
