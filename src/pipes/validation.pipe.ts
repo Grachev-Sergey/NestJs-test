@@ -12,10 +12,12 @@ export class ValidationPipe implements PipeTransform<unknown> {
   ): Promise<unknown> {
     const obj = plainToClass(metadata.metatype, value);
     const errors = await validate(obj);
-
     if (errors.length) {
-      const messages = errors.map((err) => {
-        return `${err.property} - ${Object.values(err.constraints).join(', ')}`;
+      const messages = errors.map((item) => {
+        return {
+          path: item.property,
+          errors: `${Object.values(item.constraints).join(', ')}`,
+        };
       });
       throw new ValidationException(messages);
     }

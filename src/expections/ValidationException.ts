@@ -1,9 +1,14 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 
-export class ValidationException extends HttpException {
-  messages: string[];
+type ErrorsType = {
+  path: string;
+  errors: string;
+};
 
-  constructor(messages: string[]) {
+export class ValidationException extends HttpException {
+  messages: ErrorsType[];
+
+  constructor(messages: ErrorsType[]) {
     super(messages, HttpStatus.BAD_REQUEST);
   }
 }
