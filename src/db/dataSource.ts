@@ -1,7 +1,8 @@
 import { DataSource } from 'typeorm';
+import type { DataSourceOptions } from 'typeorm';
 import config from '../config';
 
-const dataSource = new DataSource({
+export const defaultSource: DataSourceOptions = {
   type: 'postgres',
   host: config.db.host,
   port: config.db.port,
@@ -11,6 +12,8 @@ const dataSource = new DataSource({
   entities: [`${__dirname}/entities/*`],
   migrations: [`${__dirname}/migrations/*`],
   subscribers: [],
-});
+};
+
+const dataSource = new DataSource(defaultSource);
 
 export default dataSource;

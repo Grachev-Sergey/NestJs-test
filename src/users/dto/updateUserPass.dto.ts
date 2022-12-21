@@ -12,10 +12,7 @@ import {
 @ValidatorConstraint({ name: 'CustomMatchPasswords', async: false })
 export class CustomMatchPasswords implements ValidatorConstraintInterface {
   validate(password: string, args: ValidationArguments) {
-    if (password !== (args.object as unknown)[args.constraints[0]]) {
-      return true;
-    }
-    return false;
+    return password !== (args.object as unknown)[args.constraints[0]];
   }
 
   defaultMessage() {
