@@ -60,29 +60,24 @@ export class UsersService {
     await this.userRepository.remove(user);
   }
 
-  async updateUserEmail(
-    dto: UpdateUserEmailDto,
-    userId: number,
-  ): Promise<User> {
+  async updateUserEmail(dto: UpdateUserEmailDto, user: User): Promise<User> {
     const { newEmail } = dto;
-    const user = await this.getUserById(userId);
-
-    user.email = newEmail;
-    await this.userRepository.save(user);
+    const changeableUser = user;
+    changeableUser.email = newEmail;
+    await this.userRepository.save(changeableUser);
     return user;
   }
 
-  async updateUserPass(dto: UpdateUserPasslDto, userId: number): Promise<User> {
+  async updateUserPass(dto: UpdateUserPasslDto, user: User): Promise<User> {
     const { password, newPassword } = dto;
+    const changeableUser = user;
 
-    const user = await this.getUserById(userId);
+    await this.checkMatchPassword(changeableUser.id, password);
 
-    await this.checkMatchPassword(userId, password);
-
-    user.password = bcryptjs.hashSync(newPassword, config.salt);
-    await this.userRepository.save(user);
-    delete user.password;
-    return user;
+    changeableUser.password = bcryptjs.hashSync(newPassword, config.salt);
+    await this.userRepository.save(changeableUser);
+    delete changeableUser.password;
+    return changeableUser;
   }
 
   async checkMatchPassword(useId: number, password: string) {
