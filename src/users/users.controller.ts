@@ -16,20 +16,34 @@ import {
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import type { User } from 'src/db/entities/user.entity';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { GetAllUsersQuery, GetOneUserQuery } from './queries/impl';
+import {
+  DeleteUserCommand,
+  UpdateEmailCommand,
+  UpdatePassCommand,
+} from './commads/impl';
+
 import { UpdateUserEmailDto } from './dto/updateUserEmai.dto';
 import { UpdateUserPasslDto } from './dto/updateUserPass.dto';
-import { UsersService } from './users.service';
+
 import { UserReq } from './user.swaggerDoks';
+
+import { UsersService } from './users.service';
 
 @ApiTags('Users')
 @ApiBearerAuth('JWT-auth')
 @Controller('users')
 @UseGuards(AuthGuard)
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private commandBus: CommandBus,
+    private queryBus: QueryBus,
+  ) {}
 
   @ApiOperation({ summary: 'Get all users from DB' })
   @ApiResponse({ status: HttpStatus.OK, type: [UserReq] })
@@ -39,7 +53,7 @@ export class UsersController {
   })
   @Get('all')
   async getAll() {
-    return this.usersService.getAllUsers();
+    return this.queryBus.execute(new GetAllUsersQuery());
   }
 
   @ApiOperation({ summary: 'Get one user from DB' })
@@ -47,7 +61,7 @@ export class UsersController {
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get(':userId')
   getOneUser(@Param('userId') userId: number) {
-    return this.usersService.getUserById(userId);
+    return this.queryBus.execute(new GetOneUserQuery(userId));
   }
 
   @ApiOperation({ summary: 'Change email' })
@@ -56,7 +70,8 @@ export class UsersController {
   @Patch('update-email')
   async updateUserEmail(@Body() userDto: UpdateUserEmailDto, @Request() req) {
     const user: User = await req.user;
-    return this.usersService.updateUserEmail(userDto, user);
+    const { newEmail } = userDto;
+    return this.commandBus.execute(new UpdateEmailCommand(user, newEmail));
   }
 
   @ApiOperation({ summary: 'Change password' })
@@ -65,7 +80,10 @@ export class UsersController {
   @Patch('update-pass')
   async updateUserPass(@Body() userDto: UpdateUserPasslDto, @Request() req) {
     const user: User = await req.user;
-    return this.usersService.updateUserPass(userDto, user);
+    const { password, newPassword } = userDto;
+    return this.commandBus.execute(
+      new UpdatePassCommand(user, password, newPassword),
+    );
   }
 
   @ApiOperation({ summary: 'Delete user' })
@@ -77,6 +95,6 @@ export class UsersController {
   @Delete(':userId')
   @HttpCode(HttpStatus.NO_CONTENT)
   deleteUser(@Param('userId') userId: number) {
-    return this.usersService.deleteUser(userId);
+    return this.commandBus.execute(new DeleteUserCommand(userId));
   }
 }

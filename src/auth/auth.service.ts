@@ -19,13 +19,13 @@ export class AuthService {
     return { user, token };
   }
 
-  async signIn(userDto: CreateUserDto) {
-    const { email, password } = userDto;
-    const user = await this.userService.getUserByEmail(email);
-    await this.userService.checkMatchPassword(user.id, password);
-    const token = this.generateToken(user.id);
-    return { user, token };
-  }
+  // async signIn(userDto: CreateUserDto) {
+  //   const { email, password } = userDto;
+  //   const user = await this.userService.getUserByEmail(email);
+  //   await this.userService.checkMatchPassword(user.id, password);
+  //   const token = this.generateToken(user.id);
+  //   return { user, token };
+  // }
 
   private generateToken = (id: number) => {
     const payload = { id };

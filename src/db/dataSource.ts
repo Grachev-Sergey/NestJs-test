@@ -1,6 +1,7 @@
 import { DataSource } from 'typeorm';
 import type { DataSourceOptions } from 'typeorm';
 import config from '../config';
+import { User } from './entities/user.entity';
 
 export const defaultSource: DataSourceOptions = {
   type: 'postgres',
@@ -15,5 +16,7 @@ export const defaultSource: DataSourceOptions = {
 };
 
 const dataSource = new DataSource(defaultSource);
+
+export const userRepository = dataSource.getRepository(User);
 
 export default dataSource;

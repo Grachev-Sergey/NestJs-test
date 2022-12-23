@@ -17,11 +17,12 @@ export class AuthController {
   signUp(@Body() userDto: CreateUserDto) {
     return this.authService.signUp(userDto);
   }
-  @ApiOperation({ summary: 'User authorization' })
-  @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
-  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Post('/sign-in')
-  signIn(@Body() userDto: CreateUserDto) {
-    return this.authService.signIn(userDto);
-  }
+
+  // @ApiOperation({ summary: 'User authorization' })
+  // @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
+  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  // @Post('/sign-in')
+  // signIn(@Body() userDto: CreateUserDto) {
+  //   return this.authService.signIn(userDto);
+  // }
 }

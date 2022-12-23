@@ -5,8 +5,6 @@ import { Repository } from 'typeorm';
 
 import config from 'src/config';
 import { User } from 'src/db/entities/user.entity';
-import type { UpdateUserEmailDto } from './dto/updateUserEmai.dto';
-import type { UpdateUserPasslDto } from './dto/updateUserPass.dto';
 
 @Injectable()
 export class UsersService {
@@ -14,11 +12,6 @@ export class UsersService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-
-  async getAllUsers(): Promise<User[]> {
-    const allUsers = await this.userRepository.find();
-    return allUsers;
-  }
 
   async getUserByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOneBy({ email });
@@ -50,50 +43,5 @@ export class UsersService {
     delete newUser.password;
 
     return newUser;
-  }
-
-  async deleteUser(userId: number) {
-    const user = await this.userRepository.findOneBy({ id: userId });
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    await this.userRepository.remove(user);
-  }
-
-  async updateUserEmail(dto: UpdateUserEmailDto, user: User): Promise<User> {
-    const { newEmail } = dto;
-    const changeableUser = user;
-    changeableUser.email = newEmail;
-    await this.userRepository.save(changeableUser);
-    return user;
-  }
-
-  async updateUserPass(dto: UpdateUserPasslDto, user: User): Promise<User> {
-    const { password, newPassword } = dto;
-    const changeableUser = user;
-
-    await this.checkMatchPassword(changeableUser.id, password);
-
-    changeableUser.password = bcryptjs.hashSync(newPassword, config.salt);
-    await this.userRepository.save(changeableUser);
-    delete changeableUser.password;
-    return changeableUser;
-  }
-
-  async checkMatchPassword(useId: number, password: string) {
-    const currentUserPass = await this.userRepository
-      .createQueryBuilder('user')
-      .where('user.id = :useId', { useId })
-      .select('user.password')
-      .getRawOne();
-
-    const validPass = bcryptjs.compareSync(
-      password,
-      currentUserPass.user_password,
-    );
-
-    if (!validPass) {
-      throw new HttpException('Wrong password', HttpStatus.BAD_REQUEST);
-    }
   }
 }
