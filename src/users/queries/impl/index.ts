@@ -1,2 +1,3 @@
 export * from './getAllUsers.query';
-export * from './getOneUser.query';
+export * from './getUserById.query';
+export * from './getUserByEmail.query';

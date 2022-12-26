@@ -1,4 +1,9 @@
 import { GetAllUsersHandler } from './getAllUsers.handler';
-import { GetOneUserHandler } from './getOneUser.handler';
+import { GetUserByIdHandler } from './getUserById.handler';
+import { GetUserByEmailHandler } from './getUserByEmail.handler';
 
-export const QueryHandlers = [GetAllUsersHandler, GetOneUserHandler];
+export const QueryHandlers = [
+  GetAllUsersHandler,
+  GetUserByIdHandler,
+  GetUserByEmailHandler,
+];

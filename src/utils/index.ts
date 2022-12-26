@@ -3,11 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 import { User } from 'src/db/entities/user.entity';
+import { JwtService } from '@nestjs/jwt';
 
-export class CheckMatchPasswords {
+export class Utils {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
   async checkMatchPass(userId: number, password: string) {
     const currentUserPass = await this.userRepository
@@ -25,5 +27,10 @@ export class CheckMatchPasswords {
       throw new HttpException('Wrong password', HttpStatus.BAD_REQUEST);
     }
     return validPass;
+  }
+
+  async generateToken(id: number) {
+    const payload = { id };
+    return this.jwtService.sign(payload);
   }
 }

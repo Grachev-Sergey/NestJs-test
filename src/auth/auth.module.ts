@@ -1,16 +1,20 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import config from 'src/config';
-import { UsersModule } from 'src/users/users.module';
+import { User } from 'src/db/entities/user.entity';
+import { Utils } from 'src/utils';
 import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
+import { CommandHandlers } from './commands/handlers';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [...CommandHandlers, Utils],
   imports: [
-    forwardRef(() => UsersModule),
+    CqrsModule,
+    TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: config.token.secretKey,
       signOptions: {
@@ -18,6 +22,6 @@ import { AuthService } from './auth.service';
       },
     }),
   ],
-  exports: [AuthService, JwtModule],
+  exports: [JwtModule],
 })
 export class AuthModule {}

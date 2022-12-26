@@ -4,14 +4,12 @@ import type { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
-import { UsersService } from 'src/users/users.service';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetUserByIdQuery } from 'src/users/queries/impl';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(
-    private jwtService: JwtService,
-    private userService: UsersService,
-  ) {}
+  constructor(private jwtService: JwtService, private queryBus: QueryBus) {}
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
@@ -23,7 +21,7 @@ export class AuthGuard implements CanActivate {
         throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
       }
       const payload = this.jwtService.verify(token);
-      const user = this.userService.getUserById(Number(payload.id));
+      const user = this.queryBus.execute(new GetUserByIdQuery(payload.id));
       if (!user) {
         throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
       }
