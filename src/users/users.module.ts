@@ -10,9 +10,16 @@ import { UsersController } from './users.controller';
 import { QueryHandlers } from './queries/handlers';
 import { CommandHandlers } from './commads/handlers';
 import { EventHandlers } from './events/handlers';
+import { UserSagas } from './sagas';
 @Module({
   controllers: [UsersController],
-  providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers, Utils],
+  providers: [
+    ...QueryHandlers,
+    ...CommandHandlers,
+    ...EventHandlers,
+    ...UserSagas,
+    Utils,
+  ],
   imports: [TypeOrmModule.forFeature([User]), AuthModule, CqrsModule],
 })
 export class UsersModule {}
