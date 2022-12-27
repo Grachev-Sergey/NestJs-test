@@ -20,6 +20,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 
 import type { User } from 'src/db/entities/user.entity';
 import { AuthGuard } from 'src/guards/auth.guard';
+
 import { GetAllUsersQuery, GetUserByIdQuery } from './queries/impl';
 import {
   DeleteUserCommand,

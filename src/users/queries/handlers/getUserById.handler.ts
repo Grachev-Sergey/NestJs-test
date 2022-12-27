@@ -1,10 +1,12 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import type { IQueryHandler } from '@nestjs/cqrs';
 import { QueryHandler } from '@nestjs/cqrs';
-import { GetUserByIdQuery } from '../impl';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/db/entities/user.entity';
 import { Repository } from 'typeorm';
+
+import { User } from 'src/db/entities/user.entity';
+
+import { GetUserByIdQuery } from '../impl';
 
 @QueryHandler(GetUserByIdQuery)
 export class GetUserByIdHandler implements IQueryHandler<GetUserByIdQuery> {

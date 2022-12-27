@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import type { DataSourceOptions } from 'typeorm';
+
 import config from '../config';
 import { User } from './entities/user.entity';
 

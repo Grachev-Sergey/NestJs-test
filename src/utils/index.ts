@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
+
 import { User } from 'src/db/entities/user.entity';
-import { JwtService } from '@nestjs/jwt';
 
 export class Utils {
   constructor(

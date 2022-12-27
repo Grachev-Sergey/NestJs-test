@@ -2,10 +2,12 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import type { IQueryHandler } from '@nestjs/cqrs';
 import { QueryHandler } from '@nestjs/cqrs';
-import { GetUserByEmailQuery } from '../impl';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/db/entities/user.entity';
 import { Repository } from 'typeorm';
+
+import { User } from 'src/db/entities/user.entity';
+
+import { GetUserByEmailQuery } from '../impl';
 
 @QueryHandler(GetUserByEmailQuery)
 export class GetUserByEmailHandler

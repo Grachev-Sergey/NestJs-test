@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { User } from 'src/db/entities/user.entity';
 
 export class UserReq {

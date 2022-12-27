@@ -1,19 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import type { CanActivate, ExecutionContext } from '@nestjs/common';
-import type { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
-import { User } from 'src/db/entities/user.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import type { Observable } from 'rxjs';
+import { Repository } from 'typeorm';
+
+import { User } from 'src/db/entities/user.entity';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
-    private jwtService: JwtService,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
   canActivate(
     context: ExecutionContext,

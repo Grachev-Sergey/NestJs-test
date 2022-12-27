@@ -6,12 +6,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import config from 'src/config';
 import { User } from 'src/db/entities/user.entity';
 import { Utils } from 'src/utils';
+
 import { AuthController } from './auth.controller';
 import { CommandHandlers } from './commands/handlers';
+import { EventHandlers } from './events/handlers';
 
 @Module({
   controllers: [AuthController],
-  providers: [...CommandHandlers, Utils],
+  providers: [...CommandHandlers, ...EventHandlers, Utils],
   imports: [
     CqrsModule,
     TypeOrmModule.forFeature([User]),
