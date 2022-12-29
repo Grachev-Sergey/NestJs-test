@@ -1,31 +1,40 @@
-/* eslint-disable prettier/prettier */
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../db/entities/user.entity';
 import { Utils } from '.';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { mockedJwtService } from './mocks/jwtServise';
+import { mockedJwtService } from './mocks/mockedJwtService';
 import type { Repository } from 'typeorm';
+import testConstants from './testConstants';
+import { HttpException } from '@nestjs/common';
 
 describe('Utils testing', () => {
   let utils: Utils;
-  let find: jest.Mock;
   let userRepo: Repository<User>;
+  let find: jest.Mock;
+  let createQueryBuilder: jest.Mock;
+  let where: jest.Mock;
+  let select: jest.Mock;
+  let getRawOne: jest.Mock;
 
   beforeEach(async () => {
     find = jest.fn();
-    // let user: User;
+    getRawOne = jest.fn();
+    select = jest.fn(() => ({ getRawOne }));
+    where = jest.fn(() => ({ select }));
+    createQueryBuilder = jest.fn(() => ({ where }));
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         Utils,
         {
           provide: getRepositoryToken(User),
           useValue: {
-            // checkMatchPass: jest.fn().mockResolvedValue(true),
-            // generateToken: jest.fn().mockResolvedValue(mockToken),
-            // find: jest.fn().mockResolvedValue(Promise.resolve([user])),
             find,
+            createQueryBuilder,
+            where,
+            select,
+            getRawOne,
           },
         },
         {
@@ -38,20 +47,43 @@ describe('Utils testing', () => {
     utils = module.get(Utils);
     userRepo = module.get<Repository<User>>(getRepositoryToken(User));
   });
-  // describe('check match passwords', () => {
-  //   it('must return a boolean value', async () => {
-  //     // const getRawOne = jest.fn();`
-  //     // const select = jest.fn(() => ({ getRawOne }));
-  //     // const where = jest.fn(() => ({ select }));
-  //     // const createQueryBuilder = jest.fn(() => ({ where }));
-  //     const result = await utils.checkMatchPass(6, '123123');
-  //     expect(result).toBe(true);
-  //   });
-  // });
-  describe('some test', () => {
-    it('must return sum', async () => {
-      const result = await utils.getSum(2, 2);
-      expect(result).toBe(4);
+
+  describe('check match passwords', () => {
+    beforeEach(() => {
+      getRawOne.mockReturnValue({
+        user_password: testConstants.TEST_UTILS_HASHED_PASS,
+      });
+    });
+    it('must return a boolean value', async () => {
+      const result = await utils.checkMatchPass(
+        testConstants.TEST_UTILS_USER_ID,
+        testConstants.TEST_UTILS_PASS,
+      );
+      expect(result).toBe(true);
+      expect(userRepo.createQueryBuilder).toHaveBeenCalledWith('user');
+      expect(where).toHaveBeenCalledWith('user.id = :userId', {
+        userId: testConstants.TEST_UTILS_USER_ID,
+      });
+      expect(select).toHaveBeenCalledWith('user.password');
+    });
+    it('must return a custom error', async () => {
+      try {
+        await utils.checkMatchPass(
+          testConstants.TEST_UTILS_USER_ID,
+          testConstants.TEST_UTILS_WRONG_PASS,
+        );
+      } catch (error) {
+        expect(error).toBeInstanceOf(HttpException);
+      }
+    });
+  });
+
+  describe('generate token', () => {
+    it('must return a token', async () => {
+      const result = await utils.generateToken(
+        testConstants.TEST_UTILS_USER_ID,
+      );
+      expect(result).toEqual('generated token');
     });
   });
 
