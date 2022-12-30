@@ -15,7 +15,10 @@ export class DeleteUserSagas {
       ofType(DeleteUserEvent),
       map((event) => {
         // eslint-disable-next-line no-console
-        console.log('Saga works! User from delete event:', event.user);
+        console.log(
+          '!Information from the saga! User from delete event:',
+          event.user,
+        );
         return new TestSagaCommand(event.user.id);
       }),
     );

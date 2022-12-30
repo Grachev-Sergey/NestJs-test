@@ -7,6 +7,6 @@ import { SignInEvent } from '../impl';
 export class SignInUserHandler implements IEventHandler<SignInEvent> {
   handle(event: SignInEvent) {
     // eslint-disable-next-line no-console
-    console.log('User is authorized:', event.user);
+    console.log('!Information from the event! User is authorized:', event.user);
   }
 }

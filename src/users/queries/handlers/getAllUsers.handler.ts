@@ -3,7 +3,7 @@ import { QueryHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { User } from 'src/db/entities/user.entity';
+import { User } from '../../../db/entities/user.entity';
 import { GetAllUsersQuery } from '../impl';
 
 @QueryHandler(GetAllUsersQuery)

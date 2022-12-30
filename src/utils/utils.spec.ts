@@ -1,25 +1,24 @@
+import { HttpException } from '@nestjs/common';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
+import type { Repository } from 'typeorm';
+
 import { User } from '../db/entities/user.entity';
 import { Utils } from '.';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { mockedJwtService } from './mocks/mockedJwtService';
-import type { Repository } from 'typeorm';
 import testConstants from './testConstants';
-import { HttpException } from '@nestjs/common';
 
 describe('Utils testing', () => {
   let utils: Utils;
   let userRepo: Repository<User>;
-  let find: jest.Mock;
   let createQueryBuilder: jest.Mock;
   let where: jest.Mock;
   let select: jest.Mock;
   let getRawOne: jest.Mock;
 
   beforeEach(async () => {
-    find = jest.fn();
     getRawOne = jest.fn();
     select = jest.fn(() => ({ getRawOne }));
     where = jest.fn(() => ({ select }));
@@ -30,7 +29,6 @@ describe('Utils testing', () => {
         {
           provide: getRepositoryToken(User),
           useValue: {
-            find,
             createQueryBuilder,
             where,
             select,
@@ -84,18 +82,6 @@ describe('Utils testing', () => {
         testConstants.TEST_UTILS_USER_ID,
       );
       expect(result).toEqual('generated token');
-    });
-  });
-
-  describe('get all user test', () => {
-    let user: User;
-    beforeEach(() => {
-      find.mockReturnValue(Promise.resolve([user]));
-    });
-    it('must return all users', async () => {
-      const result = await utils.getAllUser();
-      expect(result).toEqual([user]);
-      expect(userRepo.find).toHaveBeenCalled();
     });
   });
 });

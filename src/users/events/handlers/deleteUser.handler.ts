@@ -7,6 +7,9 @@ import { DeleteUserEvent } from '../impl';
 export class DeleteUserHandler implements IEventHandler<DeleteUserEvent> {
   handle(event: DeleteUserEvent) {
     // eslint-disable-next-line no-console
-    console.log('User has been deleted:', event.user);
+    console.log(
+      '!Information from the event! User has been deleted:',
+      event.user,
+    );
   }
 }

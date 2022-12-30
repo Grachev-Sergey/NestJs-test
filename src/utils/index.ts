@@ -12,6 +12,7 @@ export class Utils {
     private userRepository: Repository<User>,
     private jwtService: JwtService,
   ) {}
+
   async checkMatchPass(userId: number, password: string) {
     const currentUserPass = await this.userRepository
       .createQueryBuilder('user')
@@ -33,9 +34,5 @@ export class Utils {
   async generateToken(id: number) {
     const payload = { id };
     return this.jwtService.sign(payload);
-  }
-
-  async getAllUser() {
-    return this.userRepository.find();
   }
 }

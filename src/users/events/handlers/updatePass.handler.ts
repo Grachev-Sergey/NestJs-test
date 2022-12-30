@@ -7,6 +7,6 @@ import { UpdatePassEvent } from '../impl';
 export class UpdatePassHandler implements IEventHandler<UpdatePassEvent> {
   handle(event: UpdatePassEvent) {
     // eslint-disable-next-line no-console
-    console.log('User changed pass:', event.user);
+    console.log('!Information from the event! User changed pass:', event.user);
   }
 }

@@ -7,6 +7,9 @@ import { SignUpEvent } from '../impl';
 export class SignUpUserHandler implements IEventHandler<SignUpEvent> {
   handle(event: SignUpEvent) {
     // eslint-disable-next-line no-console
-    console.log('New user registered:', event.user);
+    console.log(
+      '!Information from the event! New user registered:',
+      event.user,
+    );
   }
 }

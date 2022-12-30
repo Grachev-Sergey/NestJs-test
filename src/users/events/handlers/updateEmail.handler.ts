@@ -8,6 +8,7 @@ export class UpdateEmailHandler implements IEventHandler<UpdateEmailEvent> {
   handle(event: UpdateEmailEvent) {
     // eslint-disable-next-line no-console
     console.log(
+      '!Information from the event!',
       'User changed email:',
       event.user,
       'New email:',
