@@ -5,8 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 
-import config from 'src/config';
-import { User } from 'src/db/entities/user.entity';
+import config from '../../../config';
+import { User } from '../../../db/entities/user.entity';
 import { CreateUserCommand } from '../impl';
 
 @CommandHandler(CreateUserCommand)

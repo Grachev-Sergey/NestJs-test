@@ -49,26 +49,26 @@ describe('Utils testing', () => {
   describe('check match passwords', () => {
     beforeEach(() => {
       getRawOne.mockReturnValue({
-        user_password: testConstants.TEST_UTILS_HASHED_PASS,
+        user_password: testConstants.TEST_HASHED_PASS,
       });
     });
     it('must return a boolean value', async () => {
       const result = await utils.checkMatchPass(
-        testConstants.TEST_UTILS_USER_ID,
-        testConstants.TEST_UTILS_PASS,
+        testConstants.TEST_USER_ID,
+        testConstants.TEST_PASS,
       );
       expect(result).toBe(true);
       expect(userRepo.createQueryBuilder).toHaveBeenCalledWith('user');
       expect(where).toHaveBeenCalledWith('user.id = :userId', {
-        userId: testConstants.TEST_UTILS_USER_ID,
+        userId: testConstants.TEST_USER_ID,
       });
       expect(select).toHaveBeenCalledWith('user.password');
     });
     it('must return a custom error', async () => {
       try {
         await utils.checkMatchPass(
-          testConstants.TEST_UTILS_USER_ID,
-          testConstants.TEST_UTILS_WRONG_PASS,
+          testConstants.TEST_USER_ID,
+          testConstants.TEST_WRONG_PASS,
         );
       } catch (error) {
         expect(error).toBeInstanceOf(HttpException);
@@ -78,9 +78,7 @@ describe('Utils testing', () => {
 
   describe('generate token', () => {
     it('must return a token', async () => {
-      const result = await utils.generateToken(
-        testConstants.TEST_UTILS_USER_ID,
-      );
+      const result = await utils.generateToken(testConstants.TEST_USER_ID);
       expect(result).toEqual('generated token');
     });
   });

@@ -6,43 +6,52 @@ import type { Repository } from 'typeorm';
 
 import { User } from '../../../db/entities/user.entity';
 import testConstants, { TEST_USER } from '../../../utils/testConstants';
-import { GetUserByEmailHandler } from './getUserByEmail.handler';
+import { CreateUserHandler } from './createUser.handler';
 
 describe('get one user by email', () => {
-  let getUserByEmail: GetUserByEmailHandler;
+  let createUserHandler: CreateUserHandler;
   let userRepo: Repository<User>;
   let findOneBy: jest.Mock;
+  let save: jest.Mock;
   beforeEach(async () => {
     findOneBy = jest.fn();
+    save = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GetUserByEmailHandler,
+        CreateUserHandler,
         {
           provide: getRepositoryToken(User),
           useValue: {
             findOneBy,
+            save,
           },
         },
       ],
     }).compile();
-    getUserByEmail = module.get(GetUserByEmailHandler);
+    createUserHandler = module.get(CreateUserHandler);
     userRepo = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
   describe('success', () => {
     beforeEach(async () => {
-      findOneBy.mockReturnValue(Promise.resolve(TEST_USER));
+      findOneBy.mockReturnValue(undefined);
+      save.mockResolvedValue(TEST_USER);
     });
 
     it('must return one user', async () => {
       const result = await userRepo.findOneBy({
-        email: testConstants.TEST_USER_EMAIL,
+        email: testConstants.TEST_NON_EXISTENT_EMAIL,
       });
-      expect(result).toEqual(TEST_USER);
+      expect(result).toEqual(undefined);
       expect(userRepo.findOneBy).toHaveBeenCalled();
 
-      const user = await getUserByEmail.execute({
-        email: testConstants.TEST_USER_EMAIL,
+      const newUser = await userRepo.save(TEST_USER);
+      expect(newUser).toEqual(TEST_USER);
+      expect(userRepo.save).toHaveBeenCalled();
+
+      const user = await createUserHandler.execute({
+        email: testConstants.TEST_NON_EXISTENT_EMAIL,
+        password: testConstants.TEST_PASS,
       });
       expect(user).toEqual(TEST_USER);
     });
@@ -50,13 +59,14 @@ describe('get one user by email', () => {
 
   describe('fail', () => {
     beforeEach(() => {
-      findOneBy.mockReturnValue(undefined);
+      findOneBy.mockReturnValue(Promise.resolve(TEST_USER));
     });
 
     it('error handling when searching for a user by email', async () => {
       try {
-        await getUserByEmail.execute({
-          email: testConstants.TEST_NON_EXISTENT_EMAIL,
+        await createUserHandler.execute({
+          email: testConstants.TEST_USER_EMAIL,
+          password: testConstants.TEST_PASS,
         });
         expect(findOneBy).toHaveBeenCalled();
       } catch (error) {
