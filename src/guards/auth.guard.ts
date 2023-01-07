@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import type { Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 
-import { User } from 'src/db/entities/user.entity';
+import { User } from '../db/entities/user.entity';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

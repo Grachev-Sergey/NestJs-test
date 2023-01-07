@@ -78,8 +78,8 @@ describe('Utils testing', () => {
 
   describe('generate token', () => {
     it('must return a token', async () => {
-      const result = await utils.generateToken(testConstants.TEST_USER_ID);
-      expect(result).toEqual('generated token');
+      const result = await utils.generateTokens(testConstants.TEST_USER_ID);
+      expect(result).toEqual('generated tokens');
     });
   });
 });

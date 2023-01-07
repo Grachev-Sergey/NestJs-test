@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 
 import { User } from '../db/entities/user.entity';
+import config from '../config';
 
 export class Utils {
   constructor(
@@ -31,8 +32,19 @@ export class Utils {
     return validPass;
   }
 
-  async generateToken(id: number) {
+  async generateTokens(id: number) {
     const payload = { id };
-    return this.jwtService.sign(payload);
+    const accessToken = this.jwtService.sign(payload, {
+      secret: config.token.access.secretKey,
+      expiresIn: config.token.access.expiresIn,
+    });
+    const refreshToken = this.jwtService.sign(payload, {
+      secret: config.token.refresh.secretKey,
+      expiresIn: config.token.refresh.expiresIn,
+    });
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }

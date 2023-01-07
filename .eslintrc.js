@@ -17,7 +17,8 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    "linebreak-style": ["error", (process.platform === "win64" ? "windows" : "unix")],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "linebreak-style": ["error", (process.platform === "win32" ? "windows" : "unix")],
     'eol-last': ['error', 'always'],
     'no-plusplus': 'off',
     'operator-linebreak': ['error', 'after', { overrides: { '?': 'before', ':': 'before' } }],

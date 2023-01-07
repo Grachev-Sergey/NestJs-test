@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import type {
   ValidationArguments,
   ValidatorConstraintInterface,
@@ -8,7 +9,6 @@ import {
   ValidatorConstraint,
   Validate,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
 
 @ValidatorConstraint({ name: 'CustomMatchPasswords', async: false })
 export class CustomMatchPasswords implements ValidatorConstraintInterface {

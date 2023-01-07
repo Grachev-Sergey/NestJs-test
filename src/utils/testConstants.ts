@@ -19,6 +19,10 @@ export const TEST_USER: User = {
   email: 'test-email@gmail.com',
   name: 'test name',
   password: null,
+  refreshToken:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+  activationLink: 'a52a277a-cd73-459e-af4a-400613000263',
+  isActivated: true,
 };
 
 // export const TEST_GET_USER_BY_ID_QUERY: GetUserByIdQuery = {

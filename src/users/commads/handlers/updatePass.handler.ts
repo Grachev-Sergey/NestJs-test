@@ -1,13 +1,12 @@
 import type { ICommandHandler } from '@nestjs/cqrs';
-import { CommandHandler, EventBus } from '@nestjs/cqrs';
+import { CommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 
-import { User } from 'src/db/entities/user.entity';
-import config from 'src/config';
-import { Utils } from 'src/utils';
-import { UpdatePassEvent } from 'src/users/events/impl';
+import { User } from '../../../db/entities/user.entity';
+import config from '../../../config';
+import { Utils } from '../../../utils';
 
 import { UpdatePassCommand } from '../impl';
 
@@ -17,7 +16,6 @@ export class UpdatePassHandler implements ICommandHandler<UpdatePassCommand> {
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private utils: Utils,
-    private eventBus: EventBus,
   ) {}
 
   async execute(handler: UpdatePassCommand): Promise<User> {
@@ -27,7 +25,6 @@ export class UpdatePassHandler implements ICommandHandler<UpdatePassCommand> {
     changeableUser.password = bcryptjs.hashSync(newPassword, config.salt);
     await this.userRepository.save(changeableUser);
     delete changeableUser.password;
-    this.eventBus.publish(new UpdatePassEvent(user));
     return changeableUser;
   }
 }

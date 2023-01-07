@@ -17,6 +17,7 @@ dotenv.config();
 
 export default {
   serverPort: Number(combinedEnv.PORT),
+  apiUrl: combinedEnv.API_URL,
   db: {
     name: combinedEnv.POSTGRES_DB,
     user: combinedEnv.POSTGRES_USER,
@@ -25,8 +26,24 @@ export default {
     port: Number(combinedEnv.POSTGRES_PORT),
   },
   token: {
-    secretKey: combinedEnv.TOKEN_SEKRET_KEY,
-    expiresIn: combinedEnv.TOKEN_EXPIRES_IN,
+    access: {
+      secretKey: combinedEnv.JWT_ACCESS_TOKEN_SECRET,
+      expiresIn: combinedEnv.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+    },
+    refresh: {
+      secretKey: combinedEnv.JWT_REFRESH_TOKEN_SECRET,
+      expiresIn: combinedEnv.JWT_REFRESH_TOKEN_EXPIRATION_TIME,
+      cookieMaxAge: Number(
+        combinedEnv.COOKIE_JWT_REFRESH_TOKEN_EXPIRATION_TIME,
+      ),
+    },
+  },
+  smtp: {
+    host: combinedEnv.SMTP_HOST,
+    port: combinedEnv.SMTP_PORT,
+    user: combinedEnv.SMTP_USER,
+    pass: combinedEnv.SMTP_PASS,
+    generatedPass: combinedEnv.SMTP_GENETATED_PASS,
   },
   salt: Number(combinedEnv.salt),
 };
