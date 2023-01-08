@@ -8,10 +8,11 @@ import { Utils } from '../utils';
 import { AuthController } from './auth.controller';
 import { CommandHandlers } from './commands/handlers';
 import { EventHandlers } from './events/handlers';
+import { QueryHandlers } from './queries/handlers';
 
 @Module({
   controllers: [AuthController],
-  providers: [...CommandHandlers, ...EventHandlers, Utils],
+  providers: [...CommandHandlers, ...EventHandlers, ...QueryHandlers, Utils],
   imports: [CqrsModule, TypeOrmModule.forFeature([User]), JwtModule],
   exports: [JwtModule],
 })
