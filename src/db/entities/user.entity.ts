@@ -4,8 +4,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  AfterLoad,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+
+import { Cart } from './cart.entity';
+import { Favorite } from './favorite.entity';
+import { Rating } from './rating.entity';
+
+import { addUrl } from '../../utils/addUrl';
 
 @Entity()
 export class User {
@@ -48,7 +56,7 @@ export class User {
     nullable: true,
   })
   @Column({ type: 'varchar', nullable: true })
-  name: string;
+  fullName: string;
 
   @ApiProperty({
     description: 'Password',
@@ -82,4 +90,41 @@ export class User {
   })
   @Column({ type: 'boolean', select: false, default: false })
   isActivated: boolean;
+
+  @ApiProperty({
+    description: 'Avatar',
+    example: 'a52a277a-cd73-459e-af4a-400613000263',
+    nullable: true,
+  })
+  @Column({ type: 'varchar', nullable: true })
+  avatar: string;
+
+  @ApiProperty({
+    description: 'Rated books',
+    example: new Rating(),
+    nullable: true,
+  })
+  @OneToMany(() => Rating, (rating) => rating.user)
+  rating: Rating[];
+
+  @ApiProperty({
+    description: 'Books in favorites',
+    example: new Favorite(),
+    nullable: true,
+  })
+  @OneToMany(() => Favorite, (favorite) => favorite.user)
+  favorite: Favorite[];
+
+  @ApiProperty({
+    description: 'Books in cart',
+    example: new Cart(),
+    nullable: true,
+  })
+  @OneToMany(() => Cart, (cart) => cart.user)
+  cart: Cart[];
+
+  @AfterLoad()
+  changingPathInResponse() {
+    this.avatar = addUrl(this.avatar, 'avatars');
+  }
 }

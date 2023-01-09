@@ -1,3 +1,6 @@
+import { Cart } from 'src/db/entities/cart.entity';
+import { Favorite } from 'src/db/entities/favorite.entity';
+import { Rating } from 'src/db/entities/rating.entity';
 import type { User } from 'src/db/entities/user.entity';
 // import type { GetUserByIdQuery } from 'src/users/queries/impl';
 
@@ -17,8 +20,14 @@ export const TEST_USER: User = {
   createdAt: new Date(),
   updatedAt: new Date(),
   email: 'test-email@gmail.com',
-  name: 'test name',
+  fullName: 'test name',
   password: null,
+  avatar: 'a52a277a-cd73-459e-af4a-400613000263',
+  rating: [new Rating()],
+  favorite: [new Favorite()],
+  cart: [new Cart()],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  changingPathInResponse() {},
   refreshToken:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
   activationLink: 'a52a277a-cd73-459e-af4a-400613000263',

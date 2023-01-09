@@ -27,12 +27,14 @@ import { GetAllUsersQuery, GetUserByIdQuery } from './queries/impl';
 import {
   DeleteUserCommand,
   LogOutCommand,
-  UpdateEmailCommand,
+  UpdatePhotoCommand,
+  UpdateInfoCommand,
   UpdatePassCommand,
 } from './commads/impl';
 
-import { UpdateUserEmailDto } from './dto/updateUserEmai.dto';
+import { UpdateUserInfoDto } from './dto/updateUserInfo.dto';
 import { UpdateUserPasslDto } from './dto/updateUserPass.dto';
+import { UpdatePhotolDto } from './dto/updatePhoto.dto';
 
 @ApiTags('Users')
 @ApiBearerAuth('JWT-auth')
@@ -60,17 +62,19 @@ export class UsersController {
     return this.queryBus.execute(new GetUserByIdQuery(userId));
   }
 
-  @ApiOperation({ summary: 'Change email' })
+  @ApiOperation({ summary: 'Change user info' })
   @ApiResponse({ status: HttpStatus.OK, type: UserReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Patch('update-email')
-  async updateUserEmail(
-    @Body() userDto: UpdateUserEmailDto,
+  async updateUserInfo(
+    @Body() userDto: UpdateUserInfoDto,
     @Req() req: IRequestWithUser,
   ) {
     const user = req.user;
-    const { newEmail } = userDto;
-    return this.commandBus.execute(new UpdateEmailCommand(user, newEmail));
+    const { newEmail, fullName } = userDto;
+    return this.commandBus.execute(
+      new UpdateInfoCommand(user, newEmail, fullName),
+    );
   }
 
   @ApiOperation({ summary: 'Change password' })
@@ -86,6 +90,21 @@ export class UsersController {
     return this.commandBus.execute(
       new UpdatePassCommand(user, password, newPassword),
     );
+  }
+
+  @ApiOperation({ summary: 'Change photo' })
+  @ApiResponse({ status: HttpStatus.OK, type: UserReq })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @Patch('update-photo')
+  async updateUserPhoto(
+    @Body() userDto: UpdatePhotolDto,
+    @Req() req: IRequestWithUser,
+  ) {
+    // eslint-disable-next-line no-console
+    console.log(userDto);
+    const { avatar } = userDto;
+    const user = req.user;
+    return this.commandBus.execute(new UpdatePhotoCommand(user, avatar));
   }
 
   @ApiOperation({ summary: 'Delete user' })

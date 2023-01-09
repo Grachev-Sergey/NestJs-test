@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { json } from 'express';
 
 import { AppModule } from './app.module';
 import config from './config';
@@ -9,6 +10,7 @@ const PORT = config.serverPort;
 
 (async () => {
   const app = await NestFactory.create(AppModule);
+  app.use(json({ limit: '50mb' }));
   app.useGlobalPipes(new ValidationPipe());
   const swaggerConfig = new DocumentBuilder()
     .setTitle('NestJs-test')
