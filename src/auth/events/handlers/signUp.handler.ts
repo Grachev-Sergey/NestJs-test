@@ -1,7 +1,7 @@
 import type { IEventHandler } from '@nestjs/cqrs';
 import { EventsHandler } from '@nestjs/cqrs/dist/decorators/events-handler.decorator';
 import * as nodemailer from 'nodemailer';
-import config from 'src/config';
+import config from '../../../config';
 
 import { SignUpEvent } from '../impl';
 
@@ -9,7 +9,7 @@ import { SignUpEvent } from '../impl';
 export class SignUpUserHandler implements IEventHandler<SignUpEvent> {
   handle(event: SignUpEvent) {
     try {
-      const USERS_LINK = `${config.apiUrl}/api/activate/${event.user.activationLink}`;
+      const USERS_LINK = `${config.apiUrl}/auth/activate/${event.user.activationLink}`;
       const transporter = nodemailer.createTransport({
         host: config.smtp.host,
         port: Number(config.smtp.port),

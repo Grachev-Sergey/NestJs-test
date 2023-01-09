@@ -12,8 +12,8 @@ import { QueryHandlers } from './queries/handlers';
 
 @Module({
   controllers: [AuthController],
-  providers: [...CommandHandlers, ...EventHandlers, ...QueryHandlers, Utils],
-  imports: [CqrsModule, TypeOrmModule.forFeature([User]), JwtModule],
+  providers: [...QueryHandlers, ...CommandHandlers, ...EventHandlers, Utils],
+  imports: [TypeOrmModule.forFeature([User]), JwtModule, CqrsModule],
   exports: [JwtModule],
 })
 export class AuthModule {}

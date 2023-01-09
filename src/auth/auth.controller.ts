@@ -3,19 +3,19 @@ import {
   Controller,
   Get,
   HttpStatus,
-  Param,
   Post,
   Req,
+  Res,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
+import { Request, Response } from 'express';
 
 import config from '../config';
-import IRequestWithUser from '../interfaces/requestWithUser.interface';
 import { CreateUserDto } from '../users/dto/createUser.dto';
 import { AuthReq } from './auth.swaggerDoks';
 import { SignInCommand, SignUpCommand } from './commands/impl';
-import { ActivateAccountQuery } from './queries/impl';
+import { ActivateAccountQuery, RefreshTokenQuery } from './queries/impl';
 
 @ApiTags('Authorization')
 @Controller('auth')
@@ -26,15 +26,12 @@ export class AuthController {
   @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Post('/sign-up')
-  async signUp(
-    @Body() userDto: CreateUserDto,
-    @Req() request: IRequestWithUser,
-  ) {
+  async signUp(@Body() userDto: CreateUserDto, @Req() req: Request) {
     const { email, password } = userDto;
     const userData = await this.commandBus.execute(
       new SignUpCommand(email, password),
     );
-    request.res.cookie('refreshToken', userData.tokens.refreshToken, {
+    req.res.cookie('refreshToken', userData.tokens.refreshToken, {
       maxAge: config.token.refresh.cookieMaxAge,
       httpOnly: true,
     });
@@ -45,37 +42,36 @@ export class AuthController {
   @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Post('/sign-in')
-  signIn(@Body() userDto: CreateUserDto) {
+  async signIn(@Body() userDto: CreateUserDto, @Req() req: Request) {
     const { email, password } = userDto;
-    return this.commandBus.execute(new SignInCommand(email, password));
+    const userData = await this.commandBus.execute(
+      new SignInCommand(email, password),
+    );
+    req.res.cookie('refreshToken', userData.tokens.refreshToken, {
+      maxAge: config.token.refresh.cookieMaxAge,
+      httpOnly: true,
+    });
+    return userData;
   }
-
-  // @ApiOperation({ summary: 'Logout' })
-  // @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
-  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  // @Post('/logout')
-  // logOut(@Body() userDto: CreateUserDto) {
-  //   const { email, password } = userDto;
-  //   return this.commandBus.execute(new SignInCommand(email, password));
-  // }
 
   @ApiOperation({ summary: 'Activate account' })
-  @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get('/activate/:link')
-  activate(@Param('link') link: string) {
-    // eslint-disable-next-line no-console
-    console.log(link);
-    this.queryBus.execute(new ActivateAccountQuery(link));
-    // return this.commandBus.execute(new SignInCommand(email, password));
+  activate(@Req() req: Request, @Res() res: Response) {
+    this.queryBus.execute(new ActivateAccountQuery(req.params.link));
+    return res.redirect(config.frontUrl);
   }
 
-  // @ApiOperation({ summary: 'Update access token' })
-  // @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
-  // @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  // @Post('/refresh')
-  // refresh(@Body() userDto: CreateUserDto) {
-  //   const { email, password } = userDto;
-  //   return this.commandBus.execute(new SignInCommand(email, password));
-  // }
+  @ApiOperation({ summary: 'Update access token' })
+  @ApiResponse({ status: HttpStatus.OK, type: AuthReq })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @Get('/refresh')
+  async refresh(@Req() req: Request) {
+    const { refreshToken } = req.cookies;
+    const tokens = await this.queryBus.execute(
+      new RefreshTokenQuery(refreshToken),
+    );
+    return tokens;
+  }
 }

@@ -8,6 +8,7 @@ import type { Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 
 import { User } from '../db/entities/user.entity';
+import config from '../config';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -27,18 +28,24 @@ export class AuthGuard implements CanActivate {
         throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
       }
       return this.validate(req, token);
-    } catch (error) {
+    } catch {
       throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
     }
   }
 
   async validate(req, token: string): Promise<boolean> {
-    const payload = this.jwtService.verify(token);
-    const user = await this.userRepository.findOneBy({ id: payload.id });
-    if (!user) {
+    try {
+      const payload = this.jwtService.verify(token, {
+        secret: config.token.access.secretKey,
+      });
+      const user = await this.userRepository.findOneBy({ id: payload.id });
+      if (!user) {
+        throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
+      }
+      req.user = user;
+      return true;
+    } catch {
       throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    req.user = user;
-    return true;
   }
 }

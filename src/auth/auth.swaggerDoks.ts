@@ -1,6 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { User } from 'src/db/entities/user.entity';
+import { User } from '../db/entities/user.entity';
+
+type TokensType = {
+  accessToken: string;
+  refreshToken: string;
+};
 
 export class AuthReq {
   @ApiProperty({
@@ -10,13 +15,18 @@ export class AuthReq {
       updatedAt: '2022-12-22T06:08:06.635Z',
       email: 'example@gmail.com',
       name: 'Bob',
+      activationLink: 'a85714e9-0bb7-44f2-867e-e5be3518ead7',
+      isActivated: true,
     },
   })
   user: User;
   @ApiProperty({
-    example:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjcxNzE4MzU4LCJleHAiOjE2NzE4MDQ3NTh9.iBNh24xt2T6UCqlkgjNLp0W-l7Mdjcc3PZ_aRJ7_T1U',
+    example: {
+      accessToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjcxNzE4MzU4LCJleHAiOjE2NzE4MDQ3NTh9.iBNh24xt2T6UCqlkgjNLp0W-l7Mdjcc3PZ_aRJ7_T1U',
+      refreshToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzMyNTY1MTIsImV4cCI6MTY3NDQ2NjExMn0.OoOY--QPjGfS7miCQA3GlN80nyDjHeH3EFne7RL2YzE',
+    },
   })
-  token: string;
+  tokens: TokensType;
 }
-// fix user and token

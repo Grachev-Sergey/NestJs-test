@@ -18,6 +18,7 @@ dotenv.config();
 export default {
   serverPort: Number(combinedEnv.PORT),
   apiUrl: combinedEnv.API_URL,
+  frontUrl: combinedEnv.FRONT_URL,
   db: {
     name: combinedEnv.POSTGRES_DB,
     user: combinedEnv.POSTGRES_USER,
