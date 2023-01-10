@@ -11,6 +11,7 @@ import { BooksModule } from './books/books.module';
 import { GenreModule } from './genre/genre.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { CartModule } from './cart/cart.module';
+import { RatingModule } from './rating/rating.module';
 
 @Module({
   controllers: [],
@@ -26,6 +27,7 @@ import { CartModule } from './cart/cart.module';
     GenreModule,
     FavoritesModule,
     CartModule,
+    RatingModule,
   ],
 })
 export class AppModule {}

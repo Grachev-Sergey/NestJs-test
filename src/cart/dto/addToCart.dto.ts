@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class AddToCartDto {
   @ApiProperty({
@@ -27,6 +27,6 @@ export class AddToCartDto {
     description: 'Book price',
     example: '15',
   })
-  @IsString({ message: 'Book price must be a number' })
+  @IsNumber()
   readonly price: number;
 }
