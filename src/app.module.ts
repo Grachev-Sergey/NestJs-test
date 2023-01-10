@@ -6,6 +6,7 @@ import { join } from 'path';
 import { typeOrmAsyncConfig } from './config/typeorm.config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { BooksModule } from './books/books.module';
 
 @Module({
   controllers: [],
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
     }),
+    BooksModule,
   ],
 })
 export class AppModule {}

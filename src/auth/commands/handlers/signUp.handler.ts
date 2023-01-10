@@ -2,7 +2,7 @@ import type { ICommandHandler } from '@nestjs/cqrs';
 import { CommandHandler, CommandBus, EventBus } from '@nestjs/cqrs';
 
 import { CreateUserCommand } from '../../../users/commads/impl';
-import { SignUpEvent } from '../../../auth/events/impl';
+// import { SignUpEvent } from '../../../auth/events/impl';
 
 import { SignUpCommand } from '../impl';
 
@@ -15,7 +15,7 @@ export class SignUpHandler implements ICommandHandler<SignUpCommand> {
     const userWithTokens = await this.commandBus.execute(
       new CreateUserCommand(email, password),
     );
-    this.eventBus.publish(new SignUpEvent(userWithTokens.user));
+    // this.eventBus.publish(new SignUpEvent(userWithTokens.user));
     return userWithTokens;
   }
 }
