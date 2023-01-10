@@ -8,7 +8,7 @@ import { DeleteBookCommand } from '../impl';
 import { Book } from '../../../db/entities/book.entity';
 
 @CommandHandler(DeleteBookCommand)
-export class AddBookHandler implements ICommandHandler<DeleteBookCommand> {
+export class DeleteBookHandler implements ICommandHandler<DeleteBookCommand> {
   constructor(
     @InjectRepository(Book)
     private bookRepository: Repository<Book>,

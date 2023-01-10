@@ -3,7 +3,7 @@ import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class AddBookDto {
   @ApiProperty({
-    description: 'BookCover',
+    description: 'Book cover',
     example: "A-Killer's-Mind.jpeg",
   })
   @IsString({ message: 'Book cover must be a string' })
