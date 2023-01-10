@@ -1,2 +1,2 @@
-export * from './activateAccount';
+export * from './activateAccount.query';
 export * from './refreshToken.query';

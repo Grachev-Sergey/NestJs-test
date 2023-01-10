@@ -12,7 +12,9 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '../guards/auth.guard';
+
 import IRequestWithUser from '../interfaces/requestWithUser.interface';
+
 import {
   AddToFavoritesCommand,
   RemoveFromFavoritesCommand,
