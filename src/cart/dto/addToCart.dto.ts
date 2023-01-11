@@ -6,15 +6,15 @@ export class AddToCartDto {
     description: 'User id',
     example: '1',
   })
-  @IsString({ message: 'User id must be a string' })
-  readonly userId: string;
+  @IsNumber()
+  readonly userId: number;
 
   @ApiProperty({
     description: 'Book id',
     example: '1',
   })
-  @IsString({ message: 'Book id must be a string' })
-  readonly bookId: string;
+  @IsNumber()
+  readonly bookId: number;
 
   @ApiProperty({
     description: 'Cover type',

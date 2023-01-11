@@ -24,8 +24,8 @@ import { GetFavorites } from './queries/impl';
 import { AddToFavoritesDto } from './dto/addToFavorites.dto';
 import { RemoveFromFavoritesDto } from './dto/removeFromFavorites.dto';
 
-@ApiTags('Favorites')
-@Controller('favorites')
+@ApiTags('Favorite')
+@Controller('favorite')
 @UseGuards(AuthGuard)
 export class FavoritesController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}

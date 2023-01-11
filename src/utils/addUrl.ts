@@ -5,6 +5,6 @@ export const addUrl = (cover: string, folder: string) => {
     return null;
   }
 
-  const linkCover = `${config.apiUrl}/${folder}/${cover}`;
+  const linkCover = `${config.apiUrl}/static/${folder}/${cover}`;
   return linkCover;
 };

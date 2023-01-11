@@ -42,6 +42,6 @@ export class AddToFavoritesHandler
       userId: favorite.userId,
     };
 
-    return { favoriteItem };
+    return favoriteItem;
   }
 }

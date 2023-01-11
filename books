@@ -1,457 +1,457 @@
 1{
-  "cover": "The-Chronicles-of-Narnia.jpg",
+  "cover": "The-Chronicles-of-Narnia.jpeg",
   "title": "The Chronicles of Narnia",
   "author": "C. S. Lewis",
   "description": "The Chronicles of Narnia is a series of seven fantasy novels by British author C. S. Lewis. Illustrated by Pauline Baynes and originally published between 1950 and 1956, The Chronicles of Narnia has been adapted for radio, television, the stage, film and video games. The series is set in the fictional realm of Narnia, a fantasy world of magic, mythical beasts and talking animals. It narrates the adventures of various children who play central roles in the unfolding history of the Narnian world. Except in The Horse and His Boy, the protagonists are all children from the real world who are magically transported to Narnia, where they are sometimes called upon by the lion Aslan to protect Narnia from evil. The books span the entire history of Narnia, from its creation in The Magician's Nephew to its eventual destruction in The Last Battle.",
   "dateOfIssue": "1950",
   "genre": ["Fantasy","Childrens"],
-  "hardCover": "true",
-  "hardCoverPrice": "11.99",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 11.99,
+  "paperback": false,
+  "rating": 4
 },
 
 2{
-  "cover": "The-Psychlogy-of-Money.jpg",
+  "cover": "The-Psychlogy-of-Money.jpeg",
   "title": "The Psychlogy of Money",
   "author": "Morgan Housel",
   "description": "Doing well with money isn't necessarily about what you know. It's about how you behave. And behavior is hard to teach, even to really smart people.Money―investing, personal finance, and business decisions―is typically taught as a math-based field, where data and formulas tell us exactly what to do. But in the real world people don't make financial decisions on a spreadsheet. They make them at the dinner table, or in a meeting room, where personal history, your own unique view of the world, ego, pride, marketing, and odd incentives are scrambled together.In The Psychology of Money, award-winning author Morgan Housel shares 19 short stories exploring the strange ways people think about money and teaches you how to make better sense of one of life's most important topics.",
   "dateOfIssue": "2020",
   "genre": ["Finance", "Nonfiction", "Psychology"],
-  "hardCover": "true",
-  "hardCoverPrice": "8.50",
-  "paperback": "false",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 8.50,
+  "paperback": false,
+  "rating": 3.5
 },
 
 3{
-  "cover": "How-to-stop-worrying-and-start-living.jpg",
+  "cover": "How-to-stop-worrying-and-start-living.jpeg",
   "title": "How to stop worrying and start living",
   "author": "Dale Carnegie",
   "description": "Stop worrying and take the steps to a happier, more fulfilling life! Through Dale Carnegie’s six-million-copy bestseller recently revised, millions of people have been helped to overcome the worry habit. Dale Carnegie offers a set of practical formulas you can put to work today. In our fast-paced world—formulas that will last a lifetime!",
   "dateOfIssue": "1997",
   "genre": ["Self Help", "Nonfiction", "Psychology"],
-  "hardCover": "true",
-  "hardCoverPrice": "12.99",
-  "paperback": "false",
+  "hardCover": true,
+  "hardCoverPrice": 12.99,
+  "paperback": false,
   "status": "Bestseller",
-  "rating": "3.8"
+  "rating": 3.8
 },
 
 4{
-  "cover": "Don’t-sweat-the-Small-Stuff.jpg",
+  "cover": "Don’t-sweat-the-Small-Stuff.jpeg",
   "title": "Don't sweat the small stuff",
   "author": "Richard Carlson",
   "description": "Put challenges in perspective, reduce stress and anxiety through small daily changes, and find the path to achieving your goals with this groundbreaking inspirational guide—a self-help classic. Don't Sweat the Small Stuff...and It's All Small Stuff is a book that tells you how to keep from letting the little things in life drive you crazy. In thoughtful and insightful language, author Richard Carlson reveals ways to calm down in the midst of your incredibly hurried, stress-filled life.",
   "dateOfIssue": "1997",
   "genre": ["Self Help", "Nonfiction", "Psychology"],
-  "hardCover": "true",
-  "hardCoverPrice": "7.50",
-  "paperback": "false",
-  "rating": "4.3"
+  "hardCover": true,
+  "hardCoverPrice": 7.50,
+  "paperback": false,
+  "rating": 4.3
 },
 
 5{
-  "cover": "The-Picture-of-Dorian-Gray.jpg",
+  "cover": "The-Picture-of-Dorian-Gray.jpeg",
   "title": "The Picture of Dorian Gray",
   "author": "Oscar Wilde",
   "description": "In this celebrated work, his only novel, Wilde forged a devastating portrait of the effects of evil and debauchery on a young aesthete in late-19th-century England. Combining elements of the Gothic horror novel and decadent French fiction, the book centers on a striking premise: As Dorian Gray sinks into a life of crime and gross sensuality, his body retains perfect youth and vigor while his recently painted portrait grows day by day into a hideous record of evil, which he must keep hidden from the world. For over a century, this mesmerizing tale of horror and suspense has enjoyed wide popularity. It ranks as one of Wilde's most important creations and among the classic achievements of its kind.",
   "dateOfIssue": "1993",
   "genre": ["Classics", "Fiction", "Horror", "Fantasy"],
-  "hardCover": "true",
-  "hardCoverPrice": "17.99",
-  "paperback": "false",
+  "hardCover": true,
+  "hardCoverPrice": 17.99,
+  "paperback": false,
   "status": "New",
-  "rating": "4.5"
+  "rating": 4.5
 },
 
 6{
-  "cover": "The-Subtle-art-of-not-giving-a-fuck.jpg",
+  "cover": "The-Subtle-art-of-not-giving-a-fuck.jpeg",
   "title": "The Subtle art of not giving a fuck",
   "author": "Mark Manson",
   "description": "In this generation-defining self-help guide, a superstar blogger cuts through the crap to show us how to stop trying to be 'positive' all the time so that we can truly become better, happier people. For decades, we’ve been told that positive thinking is the key to a happy, rich life. \"F**k positivity\", Mark Manson says. \"Let’s be honest, shit is f**ked and we have to live with it.\" In his wildly popular Internet blog, Manson doesn’t sugarcoat or equivocate. He tells it like it is—a dose of raw, refreshing, honest truth that is sorely lacking today. The Subtle Art of Not Giving a F**k is his antidote to the coddling, let’s-all-feel-good mindset that has infected modern society and spoiled a generation, rewarding them with gold medals just for showing up.",
   "dateOfIssue": "2016",
   "genre": ["Nonfiction", "Self Help" ,"Psychology"],
-  "hardCover": "true",
-  "hardCoverPrice": "14.99",
-  "paperback": "true",
-  "paperbackPrice": "11.99",
+  "hardCover": true,
+  "hardCoverPrice": 14.99,
+  "paperback": true,
+  "paperbackPrice": 11.99,
   "status": "Bestseller",
-  "rating": "3.5"
+  "rating": 3.5
 },
 
 7{
-  "cover": "The-Two-towers.jpg",
+  "cover": "The-Two-towers.jpeg",
   "title": "The Two towers",
   "author": "J. R. R. Tolkien",
   "description": "The Two Towers is the second part of J.R.R. Tolkien’s epic adventure, The Lord of the Rings. J.R.R. Tolkien’s classic epic fantasy trilogy The Lord of the Rings, now with a fresh new package for Book 2, The Two Towers. Frodo and his Companions of the Ring have been beset by danger during their quest to prevent the Ruling Ring from falling into the hands of the Dark Lord by destroying it in the Cracks of Doom. They lost the wizard Gandalf in the Mines of Moria. And Boromir, seduced by the power of the Ring, tried to seize it by force. While Frodo and Sam made their escape, the rest of the company was attacked by Orcs.",
   "dateOfIssue": "1954",
   "genre": ["Fantasy", "Classics", "Fiction", "Adventure"],
-  "hardCover": "true",
-  "hardCoverPrice": "14.99",
-  "paperback": "false",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 14.99,
+  "paperback": false,
+  "rating": 3.5
 },
 
 8{
-  "cover": "Book-of-Fairy-Tales.jpg",
+  "cover": "Book-of-Fairy-Tales.jpeg",
   "title": "Book of Fairy Tales",
   "author": "Angela Carter",
   "description": "Once upon a time, fairy tales weren't just meant for children. This collection of alternative stories from Angela Carter reveals a world where dippy princesses are replaced by bad girls and enchantresses, and strong minds, low cunning and dirty tricks are the order of the day.",
   "dateOfIssue": "1992",
   "genre": ["Short", "Stories", "Fantasy"],
-  "hardCover": "true",
-  "hardCoverPrice": "5.99",
-  "paperback": "false",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 5.99,
+  "paperback": false,
+  "rating": 4.5
 },
 
 9{
-  "cover": "The-Weight-of-Things.jpg",
+  "cover": "The-Weight-of-Things.jpeg",
   "title": "The Weight of Things",
   "author": "Marianne Flitz",
   "description": "The Weight of Things is the first book, and the first translated book, and possibly the only translatable book by Austrian writer Marianne Fritz (1948–2007). For after winning acclaim with this novel—awarded the Robert Walser Prize in 1978—she embarked on a 10,000-page literary project called “The Fortress,” creating over her lifetime elaborate colorful diagrams and typescripts so complicated that her publisher had to print them straight from her original documents. A project as brilliant as it is ambitious and as bizarre as it is brilliant, it earned her cult status, comparisons to James Joyce no less than Henry Darger, and admirers including Elfriede Jelinek and W. G. Sebald.",
   "dateOfIssue": "1978",
   "genre": ["Fiction", "Novels", "Literary"],
-  "hardCover": "true",
-  "hardCoverPrice": "16.99",
-  "paperback": "false",
-  "rating": "3"
+  "hardCover": true,
+  "hardCoverPrice": 16.99,
+  "paperback": false,
+  "rating": 3
 },
 
 10{
-  "cover": "Moby-Dick.jpg",
+  "cover": "Moby-Dick.jpeg",
   "title": "Moby Dick",
   "author": "Herman Melville",
   "description": "\"It is the horrible texture of a fabric that should be woven of ships\" cables and hawsers. A Polar wind blows through it, and birds of prey hover over it.' So Melville wrote of his masterpiece, one of the greatest works of imagination in literary history. In part, Moby-Dick is the story of an eerily compelling madman pursuing an unholy war against a creature as vast and dangerous and unknowable as the sea itself. But more than just a novel of adventure, more than an encyclopaedia of whaling lore and legend, the book can be seen as part of its author's lifelong meditation on America. Written with wonderfully redemptive humour, Moby-Dick is also a profound inquiry into character, faith, and the nature of perception.",
   "dateOfIssue": "1851",
   "genre": ["Fiction", "Classics" ,"Literature", "Adventure"],
-  "hardCover": "true",
-  "hardCoverPrice": "14",
-  "paperback": "true",
-  "paperbackPrice": "11.99",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 14,
+  "paperback": true,
+  "paperbackPrice": 11.99,
+  "rating": 3.5
 },
 11{
-  "cover": "Milk-and-honey.jpg",
+  "cover": "Milk-and-honey.jpeg",
   "title": "Milk and honey",
   "author": "Rupi Kaur",
   "description": "Milk and honey is a collection of poetry and prose about survival. About the experience of violence, abuse, love, loss, and femininity. It is split into four chapters, and each chapter serves a different purpose. Deals with a different pain. Heals a different heartache. 'milk and honey' takes readers through a journey of the most bitter moments in life and finds sweetness in them because there is sweetness everywhere if you are just willing to look.",
   "dateOfIssue": "2014",
   "genre": ["Poetry", "Feminism", "Nonfiction"],
-  "hardCover": "true",
-  "hardCoverPrice": "16",
-  "paperback": "false",
+  "hardCover": true,
+  "hardCoverPrice": 16,
+  "paperback": false,
   "status": "Bestseller",
-  "rating": "3"
+  "rating": 3
 },
 
 12{
-  "cover": "The-Crying-book.jpg",
+  "cover": "The-Crying-book.jpeg",
   "title": "The Crying book",
   "author": "Heather Christle",
   "description": "Award-winning poet Heather Christle has just lost a dear friend to suicide and must reckon with her own struggles with depression and the birth of her first child. How she faces her joy, grief, anxiety, impending motherhood, and conflicted truce with the world results in a moving meditation on the nature, rapture, and perils of crying―from the history of tear-catching gadgets (including the woman who designed a gun that shoots tears) to the science behind animal tears (including moths who drink them) to the fraught role of white women's tears in racist violence.",
   "dateOfIssue": "2019",
   "genre": ["Poetry", "Nonfiction"],
-  "hardCover": "true",
-  "hardCoverPrice": "13",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 13,
+  "paperback": false,
+  "rating": 4
 },
 
 13{
-  "cover": "The-Divine-comedy.jpg",
+  "cover": "The-Divine-comedy.jpeg",
   "title": "The Divine Comedy",
   "author": "Dante Alighieri",
   "description": "Belonging in the immortal company of the great works of literature, Dante Alighieri’s poetic masterpiece, The Divine Comedy, is a moving human drama, an unforgettable visionary journey through the infinite torment of Hell, up the arduous slopes of Purgatory, and on to the glorious realm of Paradise—the sphere of universal harmony and eternal salvation.",
   "dateOfIssue": "1320",
   "genre": ["Classics", "Poetry", "Fiction", "Literature"],
-  "hardCover": "true",
-  "hardCoverPrice": "14.99",
-  "paperback": "false",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 14.99,
+  "paperback": false,
+  "rating": 4.5
 }
 
 14{
-  "cover": "A-Killer's-Mind.jpg",
+  "cover": "A-Killer's-Mind.jpeg",
   "title": "A Killer's Mind",
   "author": "Mike Omer",
   "description": "The New York Times and Washington Post bestselling serial-killer thriller that will leave you wondering, is the past really in the past? Three Chicago women have been found strangled, embalmed, and posed as if still alive. Doubting the findings of the local PD’s profiler, the FBI calls on forensic psychologist Zoe Bentley to investigate.",
   "dateOfIssue": "2018",
   "genre": ["Mystery", "Thriller", "Fiction"],
-  "hardCover": "true",
-  "hardCoverPrice": "20",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 20,
+  "paperback": false,
+  "rating": 4
 }
 15{
-  "cover": "Murder-on-the-Orient-Express.jpg",
+  "cover": "Murder-on-the-Orient-Express.jpeg",
   "title": "Murder on the Orient Express",
   "author": "Agatha Christie",
   "description": "Just after midnight, the famous Orient Express is stopped in its tracks by a snowdrift. By morning, the millionaire Samuel Edward Ratchett lies dead in his compartment, stabbed a dozen times, his door locked from the inside. One of his fellow passengers must be the murderer. Isolated by the storm, detective Hercule Poirot must find the killer among a dozen of the dead man's enemies, before the murderer decides to strike again....",
   "dateOfIssue": "1934",
   "genre": ["Mystery", "Classics", "Fiction"],
-  "hardCover": "true",
-  "hardCoverPrice": "11",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 11,
+  "paperback": false,
+  "rating": 4
 }
 16{
-  "cover": "1984.jpg",
+  "cover": "1984.jpeg",
   "title": "1984",
   "author": "George Orwell",
   "description": "The new novel by George Orwell is the major work towards which all his previous writing has pointed. Critics have hailed it as his \"most solid, most brilliant\" work. Though the story of Nineteen Eighty-Four takes place thirty-five years hence, it is in every sense timely. The scene is London, where there has been no new housing since 1950 and where the city-wide slums are called Victory Mansions. Science has abandoned Man for the State. As every citizen knows only too well, war is peace.",
   "dateOfIssue": "1949",
   "genre": ["Classics", "Fiction", "Science Fiction", "Novels"],
-  "hardCover": "true",
-  "hardCoverPrice": "10",
-  "paperback": "true",
-  "paperbackPrice": "6",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 10,
+  "paperback": true,
+  "paperbackPrice": 6,
+  "rating": 3.5
 }
 17{
-  "cover": "Animal-Farm.jpg",
+  "cover": "Animal-Farm.jpeg",
   "title": "Animal Farm",
   "author": "George Orwell",
   "description": "George Orwell's classic satire of the Russian Revolution is an intimate part of our contemporary culture, quoted so often that we tend to forget who wrote the original words. It is an account of the bold struggle that transforms Mr. Jones' Manor Farm into Animal Farm, a wholly democratic society built on the credo that All Animals Are Created Equal. Out of their cleverness, the pigs Napoleon, Squealer, and Snowball emerge as leaders of the new community in a subtle evolution that bears an insidious familiarity. The climax is the brutal betrayal of the faithful horse Boxer, when totalitarian rule is re-established with the bloodstained postscript to the founding slogan: But Some Animals Are More Equal Than Others.",
   "dateOfIssue": "1945",
   "genre": ["Classics", "Fiction", "Fantasy", "Politics"],
-  "hardCover": "true",
-  "hardCoverPrice": "12",
-  "paperback": "false",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 12,
+  "paperback": false,
+  "rating": 4.5
 }
 18{
-  "cover": "Dune.jpg",
+  "cover": "Dune.jpeg",
   "title": "Dune",
   "author": "Frank Herbert",
   "description": "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the “spice” melange, a drug capable of extending life and enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for...",
   "dateOfIssue": "1965",
   "genre": ["Science Fiction", "Fiction", "Fantasy", "Classics"],
-  "hardCover": "true",
-  "hardCoverPrice": "8",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 8,
+  "paperback": false,
+  "rating": 4
 }
 19{
-  "cover": "The-Hunger-Games.jpg",
+  "cover": "The-Hunger-Games.jpeg",
   "title": "The Hunger Games",
   "author": "Suzanne Collins",
   "description": "In the ruins of a place once known as North America lies the nation of Panem, a shining Capitol surrounded by twelve outlying districts. The Capitol is harsh and cruel and keeps the districts in line by forcing them all to send one boy and one girl between the ages of twelve and eighteen to participate in the annual Hunger Games, a fight to the death on live TV.",
   "dateOfIssue": "2008",
   "genre": ["Young Adult", "Fiction", "Science Fiction", "Fantasy"],
-  "hardCover": "true",
-  "hardCoverPrice": "17",
-  "paperback": "false",
+  "hardCover": true,
+  "hardCoverPrice": 17,
+  "paperback": false,
   "status": "Bestseller",
-  "rating": "4.5"
+  "rating": 4.5
 }
 20{
-  "cover": "Harry-Potter-and-the-Order-of-the-Phoenix.jpg",
+  "cover": "Harry-Potter-and-the-Order-of-the-Phoenix.jpeg",
   "title": "Harry Potter and the Order of the Phoenix",
   "author": " J.K. Rowling",
   "description": "Harry Potter is about to start his fifth year at Hogwarts School of Witchcraft and Wizardry. Unlike most schoolboys, Harry never enjoys his summer holidays, but this summer is even worse than usual. The Dursleys, of course, are making his life a misery, but even his best friends, Ron and Hermione, seem to be neglecting him.",
   "dateOfIssue": "2003",
   "genre": ["Fantasy", "Young Adult", "Fiction", "Fantasy"],
-  "hardCover": "true",
-  "hardCoverPrice": "16",
-  "paperback": "true",
-  "paperbackPrice": "9",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 16,
+  "paperback": true,
+  "paperbackPrice": 9,
+  "rating": 4.5
 }
 21{
-  "cover": "Pride-and-Prejudice.jpg",
+  "cover": "Pride-and-Prejudice.jpeg",
   "title": "Pride and Prejudice",
   "author": "Anna Quindlen",
   "description": "Since its immediate success in 1813, Pride and Prejudice has remained one of the most popular novels in the English language. Jane Austen called this brilliant work \"her own darling child\" and its vivacious heroine, Elizabeth Bennet, \"as delightful a creature as ever appeared in print.\" The romantic clash between the opinionated Elizabeth and her proud beau, Mr. Darcy, is a splendid performance of civilized sparring. And Jane Austen's radiant wit sparkles as her characters dance a delicate quadrille of flirtation and intrigue, making this book the most superb comedy of manners of Regency England.",
   "dateOfIssue": "1813",
   "genre": ["Classics", "Fiction", "Romance", "Historical"],
-  "hardCover": "true",
-  "hardCoverPrice": "12",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 12,
+  "paperback": false,
+  "rating": 4
 }
 22{
-  "cover": "To-Kill-a-Mockingbird.jpg",
+  "cover": "To-Kill-a-Mockingbird.jpeg",
   "title": "To Kill a Mockingbird",
   "author": "Harper Lee",
   "description": "One of the best-loved stories of all time, To Kill a Mockingbird has been translated into more than 40 languages, sold more than 30 million copies worldwide, served as the basis for an enormously popular motion picture, and was voted one of the best novels of the 20th century by librarians across the country. A gripping, heart-wrenching, and wholly remarkable tale of coming-of-age in a South poisoned by virulent prejudice, it views a world of great beauty and savage inequities through the eyes of a young girl, as her father - a crusading local lawyer - risks everything to defend a black man unjustly accused of a terrible crime.",
   "dateOfIssue": "1960",
   "genre": ["Classics", "Fiction", "Historical"],
-  "hardCover": "true",
-  "hardCoverPrice": "9",
-  "paperback": "false",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 9,
+  "paperback": false,
+  "rating": 3.5
 }
 23{
-  "cover": "The-Book-Thief.jpg",
+  "cover": "The-Book-Thief.jpeg",
   "title": "The Book Thief",
   "author": "Markus Zusak",
   "description": "When Death has a story to tell, you listen. It is 1939. Nazi Germany. The country is holding its breath. Death has never been busier, and will become busier still. Liesel Meminger is a foster girl living outside of Munich, who scratches out a meager existence for herself by stealing when she encounters something she can’t resist - books. With the help of her accordion-playing foster father, she learns to read and shares her stolen books with her neighbors during bombing raids as well as with the Jewish man hidden in her basement.",
   "dateOfIssue": "2005",
   "genre": ["Historical", "Fiction", "Young Adult", "Historical"],
-  "hardCover": "true",
-  "hardCoverPrice": "12",
-  "paperback": "false",
-  "rating": "3"
+  "hardCover": true,
+  "hardCoverPrice": 12,
+  "paperback": false,
+  "rating": 3
 }
 24{
-  "cover": "Twilight.jpg",
+  "cover": "Twilight.jpeg",
   "title": "Twilight",
   "author": "Stephenie Meyer",
   "description": "About three things I was absolutely positive.First, Edward was a vampire. Second, there was a part of him—and I didn't know how dominant that part might be—that thirsted for my blood. And third, I was unconditionally and irrevocably in love with him. Deeply seductive and extraordinarily suspenseful, Twilight is a love story with bite.",
   "dateOfIssue": "2005",
   "genre": ["Fantasy", "Young Adult", "Romance", "Paranormal"],
-  "hardCover": "true",
-  "hardCoverPrice": "14",
-  "paperback": "true",
-  "paperbackPrice": "11",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 14,
+  "paperback": true,
+  "paperbackPrice": 11,
+  "rating": 4
 }
 25{
-  "cover": "The-Fault-in-Our-Stars.jpg",
+  "cover": "The-Fault-in-Our-Stars.jpeg",
   "title": "The Fault in Our Stars",
   "author": "John Green",
   "description": "Despite the tumor-shrinking medical miracle that has bought her a few years, Hazel has never been anything but terminal, her final chapter inscribed upon diagnosis. But when a gorgeous plot twist named Augustus Waters suddenly appears at Cancer Kid Support Group, Hazel's story is about to be completely rewritten. Insightful, bold, irreverent, and raw, The Fault in Our Stars is award-winning author John Green's most ambitious and heartbreaking work yet, brilliantly exploring the funny, thrilling, and tragic business of being alive and in love.",
   "dateOfIssue": "2012",
   "genre": ["Young Adult", "Romance", "Fiction", "Contemporary"],
-  "hardCover": "true",
-  "hardCoverPrice": "8",
-  "paperback": "false",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 8,
+  "paperback": false,
+  "rating": 4.5
 }
 26{
-  "cover": "Fahrenheit-451.jpg",
+  "cover": "Fahrenheit-451.jpeg",
   "title": "Fahrenheit 451",
   "author": "Ray Bradbury",
   "description": "Guy Montag is a fireman. His job is to destroy the most illegal of commodities, the printed book, along with the houses in which they are hidden. Montag never questions the destruction and ruin his actions produce, returning each day to his bland life and wife, Mildred, who spends all day with her television “family.” But when he meets an eccentric young neighbor, Clarisse, who introduces him to a past where people didn't live in fear and to a present where one sees the world through the ideas in books instead of the mindless chatter of television, Montag begins to question everything he has ever known.",
   "dateOfIssue": "1953 ",
   "genre": ["Classics", "Fiction", "Science Fiction", "Fantasy"],
-  "hardCover": "true",
-  "hardCoverPrice": "17",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 17,
+  "paperback": false,
+  "rating": 4
 }
 27{
-  "cover": "Gone-with-the-Wind.jpg",
+  "cover": "Gone-with-the-Wind.jpeg",
   "title": "Gone with the Wind",
   "author": "Margaret Mitchell",
   "description": "Scarlett O'Hara, the beautiful, spoiled daughter of a well-to-do Georgia plantation owner, must use every means at her disposal to claw her way out of the poverty she finds herself in after Sherman's March to the Sea.",
   "dateOfIssue": "1936",
   "genre": ["Classics", "Historical", "Fiction", "Romance"],
-  "hardCover": "true",
-  "hardCoverPrice": "9",
-  "paperback": "false",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 9,
+  "paperback": false,
+  "rating": 4.5
 }
 28{
-  "cover": "The-Giving-Tree.jpg",
+  "cover": "The-Giving-Tree.jpeg",
   "title": "The Giving Tree",
   "author": "Shel Silverstein",
   "description": "This is a tender story, touched with sadness, aglow with consolation. Shel Silverstein has created a moving parable for readers of all ages that offers an affecting interpretation of the gift of giving and a serene acceptance of another's capacity to love in return.",
   "dateOfIssue": "1964",
   "genre": ["Childrens", "Fiction", "Poetry"],
-  "hardCover": "true",
-  "hardCoverPrice": "10",
-  "paperback": "true",
-  "paperbackPrice": "6",
-  "rating": "3"
+  "hardCover": true,
+  "hardCoverPrice": 10,
+  "paperback": true,
+  "paperbackPrice": 6,
+  "rating": 3
 }
 29{
-  "cover": "Wuthering-Heights.jpg",
+  "cover": "Wuthering-Heights.jpeg",
   "title": "Wuthering Heights",
   "author": "Emily Brontë",
   "description": "At the ce,ntre of this novel is the passionate love between Catherine Earnshaw and Heathcliff - recounted with such emotional intensity that a plain tale of the Yorkshire moors acquires the depth and simplicity of ancient tragedy.",
   "dateOfIssue": "1847",
   "genre": ["Classics", "Fiction", "Romance"],
-  "hardCover": "true",
-  "hardCoverPrice": "11",
-  "paperback": "false",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 11,
+  "paperback": false,
+  "rating": 3.5
 }
 30{
-  "cover": "Jane-Eyre.jpg",
+  "cover": "Jane-Eyre.jpeg",
   "title": "Jane Eyre",
   "author": "Charlotte Brontë",
   "description": "Orphaned as a child, Jane has felt an outcast her whole young life. Her courage is tested once again when she arrives at Thornfield Hall, where she has been hired by the brooding, proud Edward Rochester to care for his ward Adèle. Jane finds herself drawn to his troubled yet kind spirit. She falls in love. Hard.",
   "dateOfIssue": "1847",
   "genre": ["Classics", "Fiction", "Romance", "Historical"],
-  "hardCover": "true",
-  "hardCoverPrice": "14.99",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 14.99,
+  "paperback": false,
+  "rating": 4
 }
 31{
-  "cover": "Harry-Potter-and-the-Philosopher's-Stone.jpg",
+  "cover": "Harry-Potter-and-the-Philosopher's-Stone.jpeg",
   "title": "Harry Potter and the Philosopher's Stone",
   "author": "J.K. Rowling",
   "description": "Harry Potter thinks he is an ordinary boy - until he is rescued by an owl, taken to Hogwarts School of Witchcraft and Wizardry, learns to play Quidditch and does battle in a deadly duel. The Reason ... HARRY POTTER IS A WIZARD!",
   "dateOfIssue": "1997",
   "genre": ["Fantasy", "Young Adult", "Fiction", "Fantasy"],
-  "hardCover": "true",
-  "hardCoverPrice": "13",
-  "paperback": "false",
-  "rating": "4.5"
+  "hardCover": true,
+  "hardCoverPrice": 13,
+  "paperback": false,
+  "rating": 4.5
 }
 32{
-  "cover": "The-Da-Vinci-Code.jpg",
+  "cover": "The-Da-Vinci-Code.jpeg",
   "title": "The Da Vinci Code",
   "author": "Dan Brown",
   "description": "While in Paris, Harvard symbologist Robert Langdon is awakened by a phone call in the dead of the night. The elderly curator of the Louvre has been murdered inside the museum, his body covered in baffling symbols. As Langdon and gifted French cryptologist Sophie Neveu sort through the bizarre riddles, they are stunned to discover a trail of clues hidden in the works of Leonardo da Vinci—clues visible for all to see and yet ingeniously disguised by the painter.",
   "dateOfIssue": "2003",
   "genre": ["Fiction", "Mystery", "Thriller"],
-  "hardCover": "true",
-  "hardCoverPrice": "22",
-  "paperback": "true",
-  "paperbackPrice": "13",
-  "rating": "5"
+  "hardCover": true,
+  "hardCoverPrice": 22,
+  "paperback": true,
+  "paperbackPrice": 13,
+  "rating": 5
 }
 33{
-  "cover": "The-Perks-of-Being-a-Wallflower.jpg",
+  "cover": "The-Perks-of-Being-a-Wallflower.jpeg",
   "title": "The Perks of Being a Wallflower",
   "author": "Stephen Chbosky",
   "description": "This is the story of what it's like to grow up in high school. More intimate than a diary, Charlie's letters are singular and unique, hilarious and devastating. We may not know where he lives. We may not know to whom he is writing. All we know is the world he shares. Caught between trying to live his life and trying to run from it puts him on a strange course through uncharted territory. The world of first dates and mixed tapes, family dramas and new friends. The world of sex, drugs, and The Rocky Horror Picture Show, when all one requires is that the perfect song on that perfect drive to feel infinite.",
   "dateOfIssue": "1999",
   "genre": ["Young Adult", "Fiction", "Contemporary", "Classics"],
-  "hardCover": "true",
-  "hardCoverPrice": "11",
-  "paperback": "false",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 11,
+  "paperback": false,
+  "rating": 3.5
 }
 34{
-  "cover": "Memoirs-of-a-Geisha.jpg",
+  "cover": "Memoirs-of-a-Geisha.jpeg",
   "title": "Memoirs of a Geisha",
   "author": "Arthur Golden",
   "description": "A literary sensation and runaway bestseller, this brilliant novel presents with seamless authenticity and exquisite lyricism the true confessions of one of Japan's most celebrated geisha. In \"Memoirs of a Geisha,\" we enter a world where appearances are paramount; where a girl's virginity is auctioned to the highest bidder; where women are trained to beguile the most powerful men; and where love is scorned as illusion. It is a unique and triumphant work of fiction - at once romantic, erotic, suspenseful - and completely unforgettable.",
   "dateOfIssue": "1997",
   "genre": ["Fiction", "Romance", "Historical", "Classics"],
-  "hardCover": "true",
-  "hardCoverPrice": "23",
-  "paperback": "false",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 23,
+  "paperback": false,
+  "rating": 4
 }
 35{
-  "cover": "Alice's-Adventures-in-Wonderland.jpg",
+  "cover": "Alice's-Adventures-in-Wonderland.jpeg",
   "title": "Alice's Adventures in Wonderland Through the Looking-Glass",
   "author": "Lewis Carroll",
   "description": "When Alice sees a white rabbit take a watch out of its waistcoat pocket she decides to follow it, and a sequence of most unusual events is set in motion. This mini book contains the entire topsy-turvy stories of Alice's Adventures in Wonderland and Through the Looking-Glass, accompanied by practical notes and Martina Pelouso's memorable full-colour illustrations.",
   "dateOfIssue": "1871",
   "genre": ["Classics", "Fantasy", "Fiction", "Childrens"],
-  "hardCover": "true",
-  "hardCoverPrice": "8",
-  "paperback": "false",
-  "rating": "3.5"
+  "hardCover": true,
+  "hardCoverPrice": 8,
+  "paperback": false,
+  "rating": 3.5
 }
 36{
-  "cover": "The-Little-Prince.jpg",
+  "cover": "The-Little-Prince.jpeg",
   "title": "The Little Prince",
   "author": "Antoine de Saint-Exupéry",
   "description": "A pilot stranded in the desert awakes one morning to see, standing before him, the most extraordinary little fellow. \"Please,\" asks the stranger, \"draw me a sheep.\" And the pilot realizes that when life's events are too difficult to understand, there is no choice but to succumb to their mysteries. He pulls out pencil and paper... And thus begins this wise and enchanting fable that, in teaching the secret of what is really important in life, has changed forever the world for its readers.",
   "dateOfIssue": "1943",
   "genre": ["Classics", "Fiction", "Fantasy", "Childrens"],
-  "hardCover": "true",
-  "hardCoverPrice": "9",
-  "paperback": "true",
-  "paperbackPrice": "6",
-  "rating": "4"
+  "hardCover": true,
+  "hardCoverPrice": 9,
+  "paperback": true,
+  "paperbackPrice": 6,
+  "rating": 4
 }

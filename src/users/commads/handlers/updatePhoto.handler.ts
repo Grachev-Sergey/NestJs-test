@@ -29,7 +29,7 @@ export class UpdatePhotoHandler implements ICommandHandler<UpdatePhotoCommand> {
 
     if (user.avatar) {
       const oldName = user.avatar;
-      fs.unlink(`static/${oldName.slice(22)}`);
+      fs.unlink(`${oldName.slice(22)}`);
     }
     fs.writeFile(route, avatarData, { encoding: 'base64' });
 

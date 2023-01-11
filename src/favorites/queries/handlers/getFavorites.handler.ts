@@ -26,6 +26,6 @@ export class GetFavoritesHandler implements IQueryHandler<GetFavorites> {
     if (!favoriteBooks) {
       throw new HttpException('Books not found', HttpStatus.NOT_FOUND);
     }
-    return { favoriteBooks };
+    return favoriteBooks;
   }
 }

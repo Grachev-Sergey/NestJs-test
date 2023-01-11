@@ -30,8 +30,8 @@ import {
   UpdateBookCommand,
 } from './commands/impl';
 
-@ApiTags('Books')
-@Controller('books')
+@ApiTags('Book')
+@Controller('book')
 export class BooksController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
@@ -46,11 +46,11 @@ export class BooksController {
     return await this.queryBus.execute(
       new GetFiltredBooksQuery(
         genre,
-        maxPrice,
         minPrice,
-        search,
+        maxPrice,
         sorting,
         page,
+        search,
       ),
     );
   }

@@ -16,21 +16,21 @@ export class UpdateInfoHandler implements ICommandHandler<UpdateInfoCommand> {
   ) {}
 
   async execute(handler: UpdateInfoCommand): Promise<User> {
-    const { newEmail, fullName, user } = handler;
+    const { email, fullName, user } = handler;
     const newUser = user;
     const userId = user.id;
 
     if (fullName) {
       user.fullName = fullName;
     }
-    if (newEmail) {
+    if (email) {
       const isEmailBusy = await this.userRepository.findOneBy({
-        email: newEmail,
+        email,
       });
       if (isEmailBusy) {
         throw new HttpException('Email is used', HttpStatus.BAD_REQUEST);
       }
-      user.email = newEmail;
+      user.email = email;
     }
 
     await this.userRepository.save(newUser);

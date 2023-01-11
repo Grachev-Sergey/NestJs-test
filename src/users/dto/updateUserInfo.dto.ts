@@ -9,7 +9,7 @@ export class UpdateUserInfoDto {
   @IsOptional()
   @IsString({ message: 'Email must be a string' })
   @IsEmail({}, { message: 'Invalid email' })
-  readonly newEmail?: string;
+  readonly email?: string;
 
   @ApiProperty({
     description: 'Full name',

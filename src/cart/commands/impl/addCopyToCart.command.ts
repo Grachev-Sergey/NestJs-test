@@ -1,3 +1,3 @@
 export class AddCopyToCartCommand {
-  constructor(public readonly bookId: number) {}
+  constructor(public readonly cartId: number) {}
 }

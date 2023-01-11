@@ -1,3 +1,3 @@
 export class RemoveCopyFromCartCommand {
-  constructor(public readonly bookId: number) {}
+  constructor(public readonly cartId: number) {}
 }

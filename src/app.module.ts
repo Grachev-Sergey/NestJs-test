@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 
 import { typeOrmAsyncConfig } from './config/typeorm.config';
 
@@ -18,9 +16,6 @@ import { RatingModule } from './rating/rating.module';
   providers: [],
   imports: [
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'static'),
-    }),
     UsersModule,
     AuthModule,
     BooksModule,

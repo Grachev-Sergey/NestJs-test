@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class AddBookDto {
   @ApiProperty({
@@ -41,7 +47,7 @@ export class AddBookDto {
     description: 'Genres',
     example: ['Mystery', 'Thriller', 'Fiction'],
   })
-  @IsString({ message: 'Genres must be an array of strings' })
+  @IsArray({ message: 'Genres must be an array of strings' })
   readonly genre?: string[];
 
   @ApiProperty({
@@ -70,6 +76,7 @@ export class AddBookDto {
     example: '11',
   })
   @IsNumber()
+  @IsOptional()
   readonly paperbackPrice?: number;
 
   @ApiProperty({

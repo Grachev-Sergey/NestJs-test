@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class ChangeRatingDto {
   @ApiProperty({
     description: 'Book id',
     example: '1',
   })
-  @IsString({ message: 'Book id must be a string' })
-  readonly bookId: string;
+  @IsNumber()
+  readonly bookId: number;
 
   @ApiProperty({
     description: 'Rating',

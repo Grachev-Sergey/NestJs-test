@@ -23,6 +23,7 @@ import {
   AddCopyToCartCommand,
   AddToCartCommand,
   RemoveAllBooksFromCartCommand,
+  RemoveBookFromCartCommand,
   RemoveCopyFromCartCommand,
 } from './commands/impl';
 import { GetBooksFromCartQuery } from './queries/impl';
@@ -44,7 +45,7 @@ export class CartController {
 
   @Post('/')
   async addToCart(@Body() cartDto: AddToCartDto, @Req() req: IRequestWithUser) {
-    const bookId = Number(cartDto.bookId);
+    const bookId = cartDto.bookId;
     const { cover, price } = cartDto;
     const user = req.user;
     return this.commandBus.execute(
@@ -54,20 +55,20 @@ export class CartController {
 
   @Patch('/add-copy/:bookId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async addCopyToCart(@Param('bookId') bookId: number) {
-    return await this.commandBus.execute(new AddCopyToCartCommand(bookId));
+  async addCopyToCart(@Param('bookId') cartId: number) {
+    return await this.commandBus.execute(new AddCopyToCartCommand(cartId));
   }
 
   @Patch('/remove-copy/:bookId')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async removeCopyFromCart(@Param('bookId') bookId: number) {
-    return await this.commandBus.execute(new RemoveCopyFromCartCommand(bookId));
+  async removeCopyFromCart(@Param('bookId') cartId: number) {
+    return await this.commandBus.execute(new RemoveCopyFromCartCommand(cartId));
   }
 
   @Delete('/')
   async removeBookFromCart(@Query() query: RemoveBookFromCartDto) {
     const cartId = Number(query.cartId);
-    return await this.commandBus.execute(new RemoveCopyFromCartCommand(cartId));
+    return await this.commandBus.execute(new RemoveBookFromCartCommand(cartId));
   }
 
   @Delete('/all')

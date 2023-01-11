@@ -23,7 +23,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { UserReq } from './user.swaggerDoks';
 import IRequestWithUser from '../interfaces/requestWithUser.interface';
 
-import { GetAllUsersQuery, GetUserByIdQuery } from './queries/impl';
+import { GetAllUsersQuery, GetMeQuery, GetUserByIdQuery } from './queries/impl';
 import {
   DeleteUserCommand,
   LogOutCommand,
@@ -36,9 +36,9 @@ import { UpdateUserInfoDto } from './dto/updateUserInfo.dto';
 import { UpdateUserPasslDto } from './dto/updateUserPass.dto';
 import { UpdatePhotolDto } from './dto/updatePhoto.dto';
 
-@ApiTags('Users')
+@ApiTags('User')
 @ApiBearerAuth('JWT-auth')
-@Controller('users')
+@Controller('user')
 @UseGuards(AuthGuard)
 export class UsersController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
@@ -51,43 +51,51 @@ export class UsersController {
   })
   @Get('all')
   async getAll() {
-    return this.queryBus.execute(new GetAllUsersQuery());
+    return await this.queryBus.execute(new GetAllUsersQuery());
   }
 
   @ApiOperation({ summary: 'Get one user from DB' })
   @ApiResponse({ status: HttpStatus.OK, type: UserReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
   @Get(':userId')
-  getOneUser(@Param('userId') userId: number) {
-    return this.queryBus.execute(new GetUserByIdQuery(userId));
+  async getOneUser(@Param('userId') userId: number) {
+    return await this.queryBus.execute(new GetUserByIdQuery(userId));
+  }
+
+  @ApiOperation({ summary: 'Check user' })
+  @ApiResponse({ status: HttpStatus.OK, type: UserReq })
+  @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
+  @Get()
+  async getMe(@Req() req: IRequestWithUser) {
+    return await this.queryBus.execute(new GetMeQuery(req.user));
   }
 
   @ApiOperation({ summary: 'Change user info' })
   @ApiResponse({ status: HttpStatus.OK, type: UserReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Patch('update-email')
+  @Patch('change-info')
   async updateUserInfo(
     @Body() userDto: UpdateUserInfoDto,
     @Req() req: IRequestWithUser,
   ) {
     const user = req.user;
-    const { newEmail, fullName } = userDto;
-    return this.commandBus.execute(
-      new UpdateInfoCommand(user, newEmail, fullName),
+    const { email, fullName } = userDto;
+    return await this.commandBus.execute(
+      new UpdateInfoCommand(user, email, fullName),
     );
   }
 
   @ApiOperation({ summary: 'Change password' })
   @ApiResponse({ status: HttpStatus.OK, type: UserReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Patch('update-pass')
+  @Patch('change-pass')
   async updateUserPass(
     @Body() userDto: UpdateUserPasslDto,
     @Req() req: IRequestWithUser,
   ) {
     const user = req.user;
     const { password, newPassword } = userDto;
-    return this.commandBus.execute(
+    return await this.commandBus.execute(
       new UpdatePassCommand(user, password, newPassword),
     );
   }
@@ -95,16 +103,14 @@ export class UsersController {
   @ApiOperation({ summary: 'Change photo' })
   @ApiResponse({ status: HttpStatus.OK, type: UserReq })
   @ApiResponse({ status: HttpStatus.BAD_REQUEST, description: 'Bad Request' })
-  @Patch('update-photo')
+  @Patch('upload-photo')
   async updateUserPhoto(
     @Body() userDto: UpdatePhotolDto,
     @Req() req: IRequestWithUser,
   ) {
-    // eslint-disable-next-line no-console
-    console.log(userDto);
     const { avatar } = userDto;
     const user = req.user;
-    return this.commandBus.execute(new UpdatePhotoCommand(user, avatar));
+    return await this.commandBus.execute(new UpdatePhotoCommand(user, avatar));
   }
 
   @ApiOperation({ summary: 'Delete user' })

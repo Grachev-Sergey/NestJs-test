@@ -38,7 +38,15 @@ export class AuthGuard implements CanActivate {
       const payload = this.jwtService.verify(token, {
         secret: config.token.access.secretKey,
       });
-      const user = await this.userRepository.findOneBy({ id: payload.id });
+      const userId = payload.id;
+
+      const user = await this.userRepository
+        .createQueryBuilder('user')
+        .where('user.id = :userId', { userId })
+        .leftJoinAndSelect('user.rating', 'rating')
+        .leftJoinAndSelect('user.favorite', 'favorite')
+        .leftJoinAndSelect('user.cart', 'cart')
+        .getOne();
       if (!user) {
         throw new HttpException('User unauthorized', HttpStatus.UNAUTHORIZED);
       }

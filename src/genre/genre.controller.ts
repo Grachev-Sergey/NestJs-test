@@ -7,7 +7,7 @@ import { AddGenreDto } from './dto/addGenre.dto';
 import { GetAllGenresQuery } from './queries/impl';
 
 @ApiTags('Genre')
-@Controller('genre')
+@Controller('genres')
 export class GenreController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 

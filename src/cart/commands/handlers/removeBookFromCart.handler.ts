@@ -30,6 +30,9 @@ export class RemoveBookFromCartHandler
       throw new HttpException('Book not found in cart', HttpStatus.NOT_FOUND);
     }
 
+    // eslint-disable-next-line no-console
+    console.log(foundCartElem);
+
     const id = foundCartElem.id;
     await this.cartRepository.remove(foundCartElem);
     return { id };

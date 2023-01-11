@@ -19,11 +19,11 @@ export class AddCopyToCartHandler
   ) {}
 
   async execute(handler: AddCopyToCartCommand) {
-    const { bookId } = handler;
+    const { cartId } = handler;
 
     const foundCartElem = await this.cartRepository
       .createQueryBuilder('cart')
-      .where('cart.bookId = :bookId', { bookId })
+      .where('cart.id = :cartId', { cartId })
       .getOne();
 
     if (!foundCartElem) {
