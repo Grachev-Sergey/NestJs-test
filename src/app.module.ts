@@ -10,6 +10,7 @@ import { GenreModule } from './genre/genre.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import { CartModule } from './cart/cart.module';
 import { RatingModule } from './rating/rating.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   controllers: [],
@@ -23,6 +24,7 @@ import { RatingModule } from './rating/rating.module';
     FavoritesModule,
     CartModule,
     RatingModule,
+    CommentsModule,
   ],
 })
 export class AppModule {}

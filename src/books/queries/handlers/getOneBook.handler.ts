@@ -20,8 +20,8 @@ export class GetOneBookHandler implements IQueryHandler<GetOneBookQuery> {
     const book = await this.bookRepository
       .createQueryBuilder('book')
       .where('book.id = :bookId', { bookId })
-      // .leftJoinAndSelect('book.comments', 'comments')
-      // .leftJoinAndSelect('comments.user', 'user')
+      .leftJoinAndSelect('book.comments', 'comments')
+      .leftJoinAndSelect('comments.user', 'user')
       .getOne();
 
     if (!book) {

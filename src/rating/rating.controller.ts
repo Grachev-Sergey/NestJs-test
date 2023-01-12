@@ -20,7 +20,7 @@ export class RatingController {
     @Body() ratingDto: ChangeRatingDto,
     @Req() req: IRequestWithUser,
   ) {
-    const bookId = Number(ratingDto.bookId);
+    const bookId = ratingDto.bookId;
     const { rating } = ratingDto;
     const user = req.user;
     return this.commandBus.execute(
