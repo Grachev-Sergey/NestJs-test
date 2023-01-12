@@ -25,7 +25,7 @@ export class AddToCartHandler implements ICommandHandler<AddToCartCommand> {
     const book = await this.bookRepository.findOneBy({ id: bookId });
 
     if (!book) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('Book not found', HttpStatus.NOT_FOUND);
     }
 
     const cart = new Cart();

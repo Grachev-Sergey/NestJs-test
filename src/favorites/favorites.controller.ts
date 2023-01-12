@@ -3,13 +3,19 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Post,
   Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { AuthGuard } from '../guards/auth.guard';
 
@@ -24,18 +30,37 @@ import { GetFavorites } from './queries/impl';
 import { AddToFavoritesDto } from './dto/addToFavorites.dto';
 import { RemoveFromFavoritesDto } from './dto/removeFromFavorites.dto';
 
+import {
+  AddToFavoritesReq,
+  GetFavoritesReq,
+  RemoveFromFavoritesReq,
+} from './favorites.swaggerDocs';
+
 @ApiTags('Favorite')
+@ApiBearerAuth('JWT-auth')
 @Controller('favorite')
 @UseGuards(AuthGuard)
 export class FavoritesController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
+  @ApiOperation({ summary: 'Get books from favorites' })
+  @ApiResponse({ status: HttpStatus.OK, isArray: true, type: GetFavoritesReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Books not found',
+  })
   @Get('/')
   async getFavorites(@Req() req: IRequestWithUser) {
     const user = req.user;
     return await this.queryBus.execute(new GetFavorites(user));
   }
 
+  @ApiOperation({ summary: 'Add to favorites' })
+  @ApiResponse({ status: HttpStatus.OK, type: AddToFavoritesReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Book not found',
+  })
   @Post('/')
   async addToFavorites(
     @Body() favorites: AddToFavoritesDto,
@@ -46,6 +71,12 @@ export class FavoritesController {
     return this.commandBus.execute(new AddToFavoritesCommand(user, bookId));
   }
 
+  @ApiOperation({ summary: 'Remove from favorites' })
+  @ApiResponse({ status: HttpStatus.OK, type: RemoveFromFavoritesReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Book not found in favorites',
+  })
   @Delete('/')
   async removeFromFavorites(@Query() query: RemoveFromFavoritesDto) {
     const bookId = Number(query.bookId);

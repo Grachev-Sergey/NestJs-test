@@ -32,3 +32,15 @@ export class AuthReq {
   })
   tokens: TokensType;
 }
+
+export class RefreshTokensReq {
+  @ApiProperty({
+    example: {
+      accessToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiaWF0IjoxNjcxNzE4MzU4LCJleHAiOjE2NzE4MDQ3NTh9.iBNh24xt2T6UCqlkgjNLp0W-l7Mdjcc3PZ_aRJ7_T1U',
+      refreshToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzMyNTY1MTIsImV4cCI6MTY3NDQ2NjExMn0.OoOY--QPjGfS7miCQA3GlN80nyDjHeH3EFne7RL2YzE',
+    },
+  })
+  tokens: TokensType;
+}

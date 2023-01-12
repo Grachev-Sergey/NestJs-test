@@ -100,27 +100,12 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   avatar: string;
 
-  @ApiProperty({
-    description: 'Rated books',
-    example: new Rating(),
-    nullable: true,
-  })
   @OneToMany(() => Rating, (rating) => rating.user)
   rating: Rating[];
 
-  @ApiProperty({
-    description: 'Books in favorites',
-    example: new Favorite(),
-    nullable: true,
-  })
   @OneToMany(() => Favorite, (favorite) => favorite.user)
   favorite: Favorite[];
 
-  @ApiProperty({
-    description: 'Books in cart',
-    example: new Cart(),
-    nullable: true,
-  })
   @OneToMany(() => Cart, (cart) => cart.user)
   cart: Cart[];
 

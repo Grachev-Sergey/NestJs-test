@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { AddBookDto } from './dto/addBook.dto';
 import { GetFiltredBooksDto } from './dto/getFiltredBooks.dto';
@@ -30,16 +30,37 @@ import {
   UpdateBookCommand,
 } from './commands/impl';
 
+import {
+  AddBookReq,
+  GetAllBooksReq,
+  GetBookReq,
+  GetFiltredBooksReq,
+  GetRecommendedBooksReq,
+  UpdateBookReq,
+} from './books.swaggerDoks';
+
 @ApiTags('Book')
 @Controller('book')
 export class BooksController {
   constructor(private commandBus: CommandBus, private queryBus: QueryBus) {}
 
+  @ApiOperation({ summary: 'Get all books' })
+  @ApiResponse({ status: HttpStatus.OK, type: GetAllBooksReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Books not found',
+  })
   @Get('/')
   async getAllBooks() {
     return await this.queryBus.execute(new GetAllBooksQuery());
   }
 
+  @ApiOperation({ summary: 'Get filtred books' })
+  @ApiResponse({ status: HttpStatus.OK, type: GetFiltredBooksReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Books not found',
+  })
   @Get('/filtred-books')
   async getFiltredBooks(@Query() query: GetFiltredBooksDto) {
     const { genre, maxPrice, minPrice, search, sorting, page } = query;
@@ -55,17 +76,31 @@ export class BooksController {
     );
   }
 
+  @ApiOperation({ summary: 'Get recommended books' })
+  @ApiResponse({ status: HttpStatus.OK, type: GetRecommendedBooksReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Books not found',
+  })
   @Get('/recommendations')
   async getRecommendedBooks(@Query() query: GetRecommendedBooksDto) {
     const { id } = query;
     return await this.queryBus.execute(new GetRecommendedBooksQuery(id));
   }
 
+  @ApiOperation({ summary: 'Get book by id' })
+  @ApiResponse({ status: HttpStatus.OK, type: GetBookReq })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Book not found',
+  })
   @Get('/:bookId')
   async getOneBook(@Param('bookId') bookId: number) {
     return await this.queryBus.execute(new GetOneBookQuery(bookId));
   }
 
+  @ApiOperation({ summary: 'Add book' })
+  @ApiResponse({ status: HttpStatus.OK, type: AddBookReq })
   @Post('/add-book')
   async addBook(@Body() bookDto: AddBookDto) {
     const {
@@ -101,6 +136,8 @@ export class BooksController {
     );
   }
 
+  @ApiOperation({ summary: 'Update book' })
+  @ApiResponse({ status: HttpStatus.OK, type: UpdateBookReq })
   @Patch('/:bookId')
   async updateBook(
     @Param('bookId') bookId: number,
@@ -139,9 +176,14 @@ export class BooksController {
       ),
     );
   }
-
-  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Remove book' })
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  @ApiResponse({
+    status: HttpStatus.NOT_FOUND,
+    description: 'Book not found',
+  })
   @Delete('/:bookId')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteBook(@Param('bookId') bookId: number) {
     return await this.commandBus.execute(new DeleteBookCommand(bookId));
   }

@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import * as bcryptjs from 'bcryptjs';
 
 import { User } from '../../../db/entities/user.entity';
+
 import config from '../../../config';
 import { Utils } from '../../../utils';
 
@@ -21,10 +22,19 @@ export class UpdatePassHandler implements ICommandHandler<UpdatePassCommand> {
   async execute(handler: UpdatePassCommand): Promise<User> {
     const { user, password, newPassword } = handler;
     const changeableUser = user;
+    const userId = user.id;
     await this.utils.checkMatchPass(changeableUser.id, password);
     changeableUser.password = bcryptjs.hashSync(newPassword, config.salt);
     await this.userRepository.save(changeableUser);
     delete changeableUser.password;
-    return changeableUser;
+
+    const userWithNewPass = await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id = :userId', { userId })
+      .leftJoinAndSelect('user.rating', 'rating')
+      .leftJoinAndSelect('user.favorite', 'favorite')
+      .leftJoinAndSelect('user.cart', 'cart')
+      .getOne();
+    return userWithNewPass;
   }
 }
