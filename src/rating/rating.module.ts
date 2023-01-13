@@ -9,7 +9,7 @@ import { CommandHandlers } from './commands/handlers';
 
 import { Book } from '../db/entities/book.entity';
 import { User } from '../db/entities/user.entity';
-import { Rating } from 'src/db/entities/rating.entity';
+import { Rating } from '../db/entities/rating.entity';
 
 @Module({
   controllers: [RatingController],

@@ -7,7 +7,6 @@ import type { Repository } from 'typeorm';
 
 import { User } from '../db/entities/user.entity';
 import { Utils } from '.';
-import { mockedJwtService } from './mocks/mockedJwtService';
 import testConstants from './testConstants';
 
 describe('Utils testing', () => {
@@ -17,8 +16,10 @@ describe('Utils testing', () => {
   let where: jest.Mock;
   let select: jest.Mock;
   let getRawOne: jest.Mock;
+  let sign: jest.Mock;
 
   beforeEach(async () => {
+    sign = jest.fn();
     getRawOne = jest.fn();
     select = jest.fn(() => ({ getRawOne }));
     where = jest.fn(() => ({ select }));
@@ -37,7 +38,9 @@ describe('Utils testing', () => {
         },
         {
           provide: JwtService,
-          useValue: mockedJwtService,
+          useValue: {
+            sign,
+          },
         },
       ],
     }).compile();
@@ -77,9 +80,15 @@ describe('Utils testing', () => {
   });
 
   describe('generate token', () => {
+    beforeEach(() => {
+      sign.mockReturnValue(testConstants.TEST_TOKEN);
+    });
     it('must return a token', async () => {
       const result = await utils.generateTokens(testConstants.TEST_USER_ID);
-      expect(result).toEqual('generated tokens');
+      expect(result).toEqual({
+        accessToken: testConstants.TEST_TOKEN,
+        refreshToken: testConstants.TEST_TOKEN,
+      });
     });
   });
 });

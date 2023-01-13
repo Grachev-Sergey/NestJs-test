@@ -19,7 +19,6 @@ export class UpdateInfoHandler implements ICommandHandler<UpdateInfoCommand> {
     const { email, fullName, user } = handler;
     const newUser = user;
     const userId = user.id;
-
     if (fullName) {
       user.fullName = fullName;
     }

@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthModule } from 'src/auth/auth.module';
-import { User } from 'src/db/entities/user.entity';
-import { Utils } from 'src/utils';
+import { AuthModule } from '../auth/auth.module';
+import { User } from '../db/entities/user.entity';
+import { Utils } from '../utils';
 
 import { UsersController } from './users.controller';
 import { QueryHandlers } from './queries/handlers';

@@ -1,28 +1,54 @@
-// import type { EventBus, QueryBus } from '@nestjs/cqrs';
-// import type { TestingModule } from '@nestjs/testing';
-// import { Test } from '@nestjs/testing';
+import { QueryBus } from '@nestjs/cqrs';
+import type { TestingModule } from '@nestjs/testing';
+import { Test } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { User } from '../../../db/entities/user.entity';
+import type { Repository } from 'typeorm';
 
-// // import testConstants, { TEST_USER } from '../../../utils/testConstants';
-// import { DeleteUserHandler } from './deleteUser.handler';
+import testConstants, { TEST_USER } from '../../../utils/testConstants';
+import { DeleteUserHandler } from './deleteUser.handler';
 
-// describe('get one user by email', () => {
-//   let deleteUserHandler: DeleteUserHandler;
-//   let eventBus: EventBus;
-//   let queryBus: QueryBus;
-//   let publish: jest.Mock;
-//   let execute: jest.Mock;
-//   let remove: jest.Mock;
-//   beforeEach(async () => {
-//     remove = jest.fn();
-//     publish = jest.fn();
-//     execute == jest.fn();
-//     const module: TestingModule = await Test.createTestingModule({
-//       providers: [DeleteUserHandler],
-//     }).compile();
-//     deleteUserHandler = module.get(DeleteUserHandler);
-//   });
+describe('DeleteUser', () => {
+  let deleteUserHandler: DeleteUserHandler;
+  let userRepo: Repository<User>;
+  let queryBus: QueryBus;
+  let remove: jest.Mock;
 
-//   it('must delete user', async () => {
+  beforeEach(async () => {
+    remove = jest.fn();
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        DeleteUserHandler,
+        QueryBus,
+        {
+          provide: getRepositoryToken(User),
+          useValue: {
+            remove,
+          },
+        },
+      ],
+    }).compile();
+    deleteUserHandler = module.get(DeleteUserHandler);
+    userRepo = module.get<Repository<User>>(getRepositoryToken(User));
+    queryBus = module.get(QueryBus);
+  });
+  describe('delete user', () => {
+    beforeEach(() => {
+      jest
+        .spyOn(queryBus, 'execute')
+        .mockReturnValue(Promise.resolve(TEST_USER));
+    });
+    it('must return a user', async () => {
+      await deleteUserHandler.execute({
+        userId: testConstants.TEST_USER_ID,
+      });
+      expect(userRepo.remove).toHaveBeenCalled();
+      expect(queryBus.execute).toHaveBeenCalled();
 
-//   });
-// });
+      const user = await queryBus.execute({
+        userId: testConstants.TEST_USER_ID,
+      });
+      expect(user).toEqual(TEST_USER);
+    });
+  });
+});

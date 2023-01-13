@@ -5,7 +5,9 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import type { Repository } from 'typeorm';
 
 import { User } from '../../../db/entities/user.entity';
+
 import testConstants, { TEST_USER } from '../../../utils/testConstants';
+
 import { GetUserByIdHandler } from './getUserById.handler';
 
 describe('get one user by id', () => {
