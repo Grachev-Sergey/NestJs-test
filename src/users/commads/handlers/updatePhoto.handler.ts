@@ -8,6 +8,7 @@ import * as fs from 'node:fs/promises';
 import { User } from '../../../db/entities/user.entity';
 
 import { UpdatePhotoCommand } from '../impl';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @CommandHandler(UpdatePhotoCommand)
 export class UpdatePhotoHandler implements ICommandHandler<UpdatePhotoCommand> {
@@ -28,8 +29,12 @@ export class UpdatePhotoHandler implements ICommandHandler<UpdatePhotoCommand> {
     const route = `static/avatars/${avatarName}`;
 
     if (user.avatar) {
-      const oldName = user.avatar;
-      fs.unlink(`${oldName.slice(22)}`);
+      try {
+        const oldName = user.avatar;
+        fs.unlink(`${oldName.slice(22)}`);
+      } catch {
+        throw new HttpException('Photo not found', HttpStatus.NOT_FOUND);
+      }
     }
     fs.writeFile(route, avatarData, { encoding: 'base64' });
 

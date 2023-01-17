@@ -4,16 +4,13 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import type { Repository } from 'typeorm';
 
 import { User } from '../../../db/entities/user.entity';
-
-import { UpdateInfoHandler } from './updateInfo.handler';
-
+import { Utils } from '../../../utils';
 import testConstants, { TEST_USER } from '../../../utils/testConstants';
-import { HttpException } from '@nestjs/common';
+import { UpdatePassHandler } from './updatePass.handler';
 
-describe('Update info handler', () => {
-  let updateInfoHandler: UpdateInfoHandler;
+describe('Update user password', () => {
+  let updatePassHandler: UpdatePassHandler;
   let userRepo: Repository<User>;
-  let findOneBy: jest.Mock;
   let save: jest.Mock;
   let createQueryBuilder: jest.Mock;
   let where: jest.Mock;
@@ -21,8 +18,9 @@ describe('Update info handler', () => {
   let leftJoinAndSelect2: jest.Mock;
   let leftJoinAndSelect3: jest.Mock;
   let getOne: jest.Mock;
+  let utils: Utils;
+  let checkMatchPass: jest.Mock;
   beforeEach(async () => {
-    findOneBy = jest.fn();
     save = jest.fn();
     createQueryBuilder = jest.fn(() => ({ where }));
     where = jest.fn(() => ({ leftJoinAndSelect: leftJoinAndSelect1 }));
@@ -34,13 +32,14 @@ describe('Update info handler', () => {
     }));
     leftJoinAndSelect3 = jest.fn(() => ({ getOne }));
     getOne = jest.fn();
+    checkMatchPass = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UpdateInfoHandler,
+        UpdatePassHandler,
+        Utils,
         {
           provide: getRepositoryToken(User),
           useValue: {
-            findOneBy,
             save,
             createQueryBuilder,
             where,
@@ -50,27 +49,30 @@ describe('Update info handler', () => {
             getOne,
           },
         },
+        {
+          provide: Utils,
+          useValue: {
+            checkMatchPass,
+          },
+        },
       ],
     }).compile();
-
-    updateInfoHandler = module.get(UpdateInfoHandler);
+    updatePassHandler = module.get(UpdatePassHandler);
+    utils = module.get(Utils);
     userRepo = module.get<Repository<User>>(getRepositoryToken(User));
   });
-
-  describe('success', () => {
+  describe('update user password', () => {
     beforeEach(async () => {
-      findOneBy.mockReturnValue(undefined);
       getOne.mockReturnValue(TEST_USER);
     });
-    it('Must return user with new info', async () => {
-      const user = await updateInfoHandler.execute({
-        email: testConstants.TEST_USER_EMAIL,
-        fullName: testConstants.TEST_USER_NAME,
+    it('Must return user', async () => {
+      const user = await updatePassHandler.execute({
         user: TEST_USER,
+        password: testConstants.TEST_PASS,
+        newPassword: testConstants.TEST_PASS,
       });
       expect(user.id).toEqual(TEST_USER.id);
       expect(user.email).toEqual(user.email);
-      expect(userRepo.findOneBy).toHaveBeenCalled();
       expect(userRepo.save).toHaveBeenCalled();
       expect(userRepo.createQueryBuilder).toHaveBeenCalledWith('user');
       expect(where).toHaveBeenCalledWith('user.id = :userId', {
@@ -85,26 +87,8 @@ describe('Update info handler', () => {
         'favorite',
       );
       expect(leftJoinAndSelect3).toHaveBeenCalledWith('user.cart', 'cart');
-    });
-  });
 
-  describe('fail', () => {
-    beforeEach(async () => {
-      findOneBy.mockReturnValue(TEST_USER);
-    });
-
-    it('error handling when searching for a user by email', async () => {
-      try {
-        await updateInfoHandler.execute({
-          email: testConstants.TEST_USER_EMAIL,
-          fullName: testConstants.TEST_USER_NAME,
-          user: TEST_USER,
-        });
-        await userRepo.findOneBy({ email: testConstants.TEST_USER_EMAIL });
-        expect(findOneBy).toHaveBeenCalled();
-      } catch (error) {
-        expect(error).toBeInstanceOf(HttpException);
-      }
+      expect(utils.checkMatchPass).toHaveBeenCalled();
     });
   });
 });

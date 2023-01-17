@@ -9,7 +9,7 @@ import {
   HttpStatus,
   UseGuards,
   Req,
-  Post,
+  // Post,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -26,7 +26,7 @@ import IRequestWithUser from '../interfaces/requestWithUser.interface';
 import { GetAllUsersQuery, GetMeQuery, GetUserByIdQuery } from './queries/impl';
 import {
   DeleteUserCommand,
-  LogOutCommand,
+  //   LogOutCommand,
   UpdatePhotoCommand,
   UpdateInfoCommand,
   UpdatePassCommand,
@@ -52,7 +52,7 @@ export class UsersController {
   })
   @Get('all')
   async getAll() {
-    return await this.queryBus.execute(new GetAllUsersQuery());
+    return this.queryBus.execute(new GetAllUsersQuery());
   }
 
   @ApiOperation({ summary: 'Get one user from DB' })
@@ -60,7 +60,7 @@ export class UsersController {
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
   @Get(':userId')
   async getOneUser(@Param('userId') userId: number) {
-    return await this.queryBus.execute(new GetUserByIdQuery(userId));
+    return this.queryBus.execute(new GetUserByIdQuery(userId));
   }
 
   @ApiOperation({ summary: 'Check user' })
@@ -68,7 +68,7 @@ export class UsersController {
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
   @Get()
   async getMe(@Req() req: IRequestWithUser) {
-    return await this.queryBus.execute(new GetMeQuery(req.user));
+    return this.queryBus.execute(new GetMeQuery(req.user));
   }
 
   @ApiOperation({ summary: 'Change user info' })
@@ -82,7 +82,7 @@ export class UsersController {
   ) {
     const user = req.user;
     const { email, fullName } = userDto;
-    return await this.commandBus.execute(
+    return this.commandBus.execute(
       new UpdateInfoCommand(user, email, fullName),
     );
   }
@@ -101,7 +101,7 @@ export class UsersController {
   ) {
     const user = req.user;
     const { password, newPassword } = userDto;
-    return await this.commandBus.execute(
+    return this.commandBus.execute(
       new UpdatePassCommand(user, password, newPassword),
     );
   }
@@ -116,7 +116,7 @@ export class UsersController {
   ) {
     const { avatar } = userDto;
     const user = req.user;
-    return await this.commandBus.execute(new UpdatePhotoCommand(user, avatar));
+    return this.commandBus.execute(new UpdatePhotoCommand(user, avatar));
   }
 
   @ApiOperation({ summary: 'Delete user' })
@@ -128,14 +128,14 @@ export class UsersController {
     return this.commandBus.execute(new DeleteUserCommand(userId));
   }
 
-  @ApiOperation({ summary: 'Logout' })
-  @ApiResponse({ status: HttpStatus.NO_CONTENT })
-  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
-  @Post('/logout')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  logOut(@Req() req: IRequestWithUser) {
-    const user = req.user;
-    req.res.clearCookie('refreshToken');
-    return this.commandBus.execute(new LogOutCommand(user));
-  }
+  //   @ApiOperation({ summary: 'Logout' })
+  //   @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  //   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
+  //   @Post('/logout')
+  //   @HttpCode(HttpStatus.NO_CONTENT)
+  //   logOut(@Req() req: IRequestWithUser) {
+  //     const user = req.user;
+  //     req.res.clearCookie('refreshToken');
+  //     return this.commandBus.execute(new LogOutCommand(user));
+  //   }
 }

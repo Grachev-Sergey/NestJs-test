@@ -2,18 +2,17 @@ import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import type { Repository } from 'typeorm';
+import * as fs from 'node:fs/promises';
 
 import { User } from '../../../db/entities/user.entity';
-
-import { UpdateInfoHandler } from './updateInfo.handler';
-
 import testConstants, { TEST_USER } from '../../../utils/testConstants';
-import { HttpException } from '@nestjs/common';
+import { UpdatePhotoHandler } from './updatePhoto.handler';
 
-describe('Update info handler', () => {
-  let updateInfoHandler: UpdateInfoHandler;
+jest.mock('fs');
+
+describe('Update user photo', () => {
+  let updatePhotoHandler: UpdatePhotoHandler;
   let userRepo: Repository<User>;
-  let findOneBy: jest.Mock;
   let save: jest.Mock;
   let createQueryBuilder: jest.Mock;
   let where: jest.Mock;
@@ -21,8 +20,9 @@ describe('Update info handler', () => {
   let leftJoinAndSelect2: jest.Mock;
   let leftJoinAndSelect3: jest.Mock;
   let getOne: jest.Mock;
+  let fsWriteFile: jest.Mock;
+  let fsUnlink: jest.Mock;
   beforeEach(async () => {
-    findOneBy = jest.fn();
     save = jest.fn();
     createQueryBuilder = jest.fn(() => ({ where }));
     where = jest.fn(() => ({ leftJoinAndSelect: leftJoinAndSelect1 }));
@@ -34,13 +34,14 @@ describe('Update info handler', () => {
     }));
     leftJoinAndSelect3 = jest.fn(() => ({ getOne }));
     getOne = jest.fn();
+    fsWriteFile = jest.fn();
+    fsUnlink = jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UpdateInfoHandler,
+        UpdatePhotoHandler,
         {
           provide: getRepositoryToken(User),
           useValue: {
-            findOneBy,
             save,
             createQueryBuilder,
             where,
@@ -52,25 +53,22 @@ describe('Update info handler', () => {
         },
       ],
     }).compile();
-
-    updateInfoHandler = module.get(UpdateInfoHandler);
+    updatePhotoHandler = module.get(UpdatePhotoHandler);
     userRepo = module.get<Repository<User>>(getRepositoryToken(User));
   });
-
-  describe('success', () => {
+  describe('update user password', () => {
     beforeEach(async () => {
-      findOneBy.mockReturnValue(undefined);
       getOne.mockReturnValue(TEST_USER);
+      (fs.writeFile as jest.Mock) = fsWriteFile;
+      (fs.unlink as jest.Mock) = fsUnlink;
     });
-    it('Must return user with new info', async () => {
-      const user = await updateInfoHandler.execute({
-        email: testConstants.TEST_USER_EMAIL,
-        fullName: testConstants.TEST_USER_NAME,
+    it('Must return user', async () => {
+      const user = await updatePhotoHandler.execute({
         user: TEST_USER,
+        avatar: testConstants.TEST_ENCODED_AVATAR,
       });
       expect(user.id).toEqual(TEST_USER.id);
       expect(user.email).toEqual(user.email);
-      expect(userRepo.findOneBy).toHaveBeenCalled();
       expect(userRepo.save).toHaveBeenCalled();
       expect(userRepo.createQueryBuilder).toHaveBeenCalledWith('user');
       expect(where).toHaveBeenCalledWith('user.id = :userId', {
@@ -85,26 +83,8 @@ describe('Update info handler', () => {
         'favorite',
       );
       expect(leftJoinAndSelect3).toHaveBeenCalledWith('user.cart', 'cart');
-    });
-  });
-
-  describe('fail', () => {
-    beforeEach(async () => {
-      findOneBy.mockReturnValue(TEST_USER);
-    });
-
-    it('error handling when searching for a user by email', async () => {
-      try {
-        await updateInfoHandler.execute({
-          email: testConstants.TEST_USER_EMAIL,
-          fullName: testConstants.TEST_USER_NAME,
-          user: TEST_USER,
-        });
-        await userRepo.findOneBy({ email: testConstants.TEST_USER_EMAIL });
-        expect(findOneBy).toHaveBeenCalled();
-      } catch (error) {
-        expect(error).toBeInstanceOf(HttpException);
-      }
+      expect(fsUnlink).toHaveBeenCalled;
+      expect(fsWriteFile).toHaveBeenCalled;
     });
   });
 });
