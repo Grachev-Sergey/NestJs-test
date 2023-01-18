@@ -9,7 +9,7 @@ import {
   HttpStatus,
   UseGuards,
   Req,
-  // Post,
+  Post,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -26,7 +26,7 @@ import IRequestWithUser from '../interfaces/requestWithUser.interface';
 import { GetAllUsersQuery, GetMeQuery, GetUserByIdQuery } from './queries/impl';
 import {
   DeleteUserCommand,
-  //   LogOutCommand,
+  LogOutCommand,
   UpdatePhotoCommand,
   UpdateInfoCommand,
   UpdatePassCommand,
@@ -128,14 +128,14 @@ export class UsersController {
     return this.commandBus.execute(new DeleteUserCommand(userId));
   }
 
-  //   @ApiOperation({ summary: 'Logout' })
-  //   @ApiResponse({ status: HttpStatus.NO_CONTENT })
-  //   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
-  //   @Post('/logout')
-  //   @HttpCode(HttpStatus.NO_CONTENT)
-  //   logOut(@Req() req: IRequestWithUser) {
-  //     const user = req.user;
-  //     req.res.clearCookie('refreshToken');
-  //     return this.commandBus.execute(new LogOutCommand(user));
-  //   }
+  @ApiOperation({ summary: 'Logout' })
+  @ApiResponse({ status: HttpStatus.NO_CONTENT })
+  @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
+  @Post('/logout')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  logOut(@Req() req: IRequestWithUser) {
+    const user = req.user;
+    req.res.clearCookie('refreshToken');
+    return this.commandBus.execute(new LogOutCommand(user));
+  }
 }

@@ -26,7 +26,6 @@ describe('user controller', () => {
       find: jest.fn().mockReturnValue(Promise.resolve([userData])),
     };
     sign = jest.fn();
-    execute: jest.fn();
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [
@@ -144,21 +143,21 @@ describe('user controller', () => {
     });
   });
 
-  ///////////////////////////////
   describe('change user pass', () => {
     describe('success', () => {
       beforeEach(() => {
         jest.spyOn(commandBus, 'execute').mockResolvedValue(MOCKED_USER);
       });
-      it('return modified user', () => {
-        return request(app.getHttpServer())
+      it('return modified user', async () => {
+        const res = await request(app.getHttpServer())
           .patch('/user/change-pass')
           .send({
             password: testConstants.TEST_PASS,
             newPassword: testConstants.TEST_WRONG_PASS,
           })
           .expect(200);
-        // expect(userData);
+        expect(res.body).toEqual(MOCKED_USER);
+        return res;
       });
     });
 
@@ -173,47 +172,94 @@ describe('user controller', () => {
           .patch('/user/change-pass')
           .expect(400);
       });
-    });
-
-    it('should throw a validation exception', () => {
-      return request(app.getHttpServer())
-        .patch('/user/change-pass')
-        .send({
-          password: testConstants.TEST_PASS,
-        })
-        .expect(400);
+      it('throw a validation exception', () => {
+        return request(app.getHttpServer())
+          .patch('/user/change-pass')
+          .send({
+            password: testConstants.TEST_USER_ID,
+          })
+          .expect(400);
+      });
     });
   });
 
   describe('change user photo', () => {
-    beforeEach(() => {
-      jest.spyOn(commandBus, 'execute').mockResolvedValue(MOCKED_USER);
+    describe('success', () => {
+      beforeEach(() => {
+        jest.spyOn(commandBus, 'execute').mockResolvedValue(MOCKED_USER);
+      });
+      it('return modified user', async () => {
+        const res = await request(app.getHttpServer())
+          .patch('/user/upload-photo')
+          .send({
+            avatar: testConstants.TEST_ENCODED_AVATAR,
+          })
+          .expect(200);
+        expect(res.body).toEqual(MOCKED_USER);
+        return res;
+      });
     });
-    it('return modified user', () => {
-      return request(app.getHttpServer())
-        .patch('/user/upload-photo')
-        .send({
-          avatar: testConstants.TEST_ENCODED_AVATAR,
-        })
-        .expect(200);
-      // expect(userData);
+    describe('fail', () => {
+      beforeEach(() => {
+        jest.spyOn(commandBus, 'execute').mockImplementation(() => {
+          throw new HttpException('Photo not found', HttpStatus.NOT_FOUND);
+        });
+      });
+      it('throw an exception', () => {
+        return request(app.getHttpServer())
+          .patch('/user/upload-photo')
+          .send({
+            avatar: testConstants.TEST_ENCODED_AVATAR,
+          })
+          .expect(404);
+      });
+      it('throw a validation exception', () => {
+        return request(app.getHttpServer())
+          .patch('/user/upload-photo')
+          .send({
+            avatar: testConstants.TEST_USER_ID,
+          })
+          .expect(400);
+      });
     });
   });
 
-  // describe('delete user', () => {
-  //   beforeEach(() => {
-  //     jest.spyOn(commandBus, 'execute').mockResolvedValue(MOKED_USER);
-  //   });
-  //   it('return modified user', () => {
-  //     return request(app.getHttpServer())
-  //       .delete('/user/')
-  //       .send({
-  //         avatar: testConstants.TEST_ENCODED_AVATAR,
-  //       })
-  //       .expect(200);
-  //     // expect(userData);
-  //   });
-  // });
+  describe('delete user', () => {
+    describe('success', () => {
+      beforeEach(() => {
+        jest.spyOn(commandBus, 'execute').mockResolvedValue(null);
+      });
+      it('return modified user', () => {
+        return request(app.getHttpServer())
+          .delete(`/user/${testConstants.TEST_USER_ID}`)
+          .expect(204);
+      });
+    });
+    describe('fail', () => {
+      beforeEach(() => {
+        jest.spyOn(commandBus, 'execute').mockImplementation(() => {
+          throw new HttpException('User found', HttpStatus.NOT_FOUND);
+        });
+      });
+      it('throw an exception', () => {
+        return request(app.getHttpServer())
+          .delete(`/user/${testConstants.TEST_NON_EXISTENT_ID}`)
+          .expect(404);
+      });
+    });
+  });
+
+  describe('logout', () => {
+    beforeEach(() => {
+      jest.spyOn(commandBus, 'execute').mockResolvedValue(null);
+    });
+    it('return modified user', () => {
+      return request(app.getHttpServer())
+        .post('/user/logout')
+        .set('Cookie', [''])
+        .expect(204);
+    });
+  });
 });
 
 describe('user controller with an unauthorized user', () => {
