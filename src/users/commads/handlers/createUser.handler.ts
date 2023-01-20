@@ -27,28 +27,27 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       throw new HttpException('Email is used', HttpStatus.BAD_REQUEST);
     }
 
-    const newUser = new User();
-    newUser.email = email;
-    newUser.password = bcryptjs.hashSync(password, config.salt);
-    const tokens = await this.utils.generateTokens(newUser.id);
-    newUser.refreshToken = tokens.refreshToken;
-    newUser.activationLink = uuid.v4();
-    const user = await this.userRepository.save(newUser);
-    delete user.password;
-    delete user.refreshToken;
-    return { user, tokens };
-
-    // do a migration!!!
     // const newUser = new User();
     // newUser.email = email;
     // newUser.password = bcryptjs.hashSync(password, config.salt);
+    // const tokens = await this.utils.generateTokens(newUser.id);
+    // newUser.refreshToken = tokens.refreshToken;
     // newUser.activationLink = uuid.v4();
     // const user = await this.userRepository.save(newUser);
-    // const tokens = await this.utils.generateTokens(user.id);
-    // user.refreshToken = tokens.refreshToken;
-    // const userWithRefresh = await this.userRepository.save(newUser);
-    // delete userWithRefresh.password;
-    // delete userWithRefresh.refreshToken;
-    // return { userWithRefresh, tokens };
+    // delete user.password;
+    // delete user.refreshToken;
+    // return { user, tokens };
+
+    const newUser = new User();
+    newUser.email = email;
+    newUser.password = bcryptjs.hashSync(password, config.salt);
+    newUser.activationLink = uuid.v4();
+    const user = await this.userRepository.save(newUser);
+    const tokens = await this.utils.generateTokens(user.id);
+    user.refreshToken = tokens.refreshToken;
+    const userWithRefresh = await this.userRepository.save(user);
+    delete userWithRefresh.password;
+    delete userWithRefresh.refreshToken;
+    return { userWithRefresh, tokens };
   }
 }

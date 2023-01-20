@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'NestJs',
       script: 'npm',
-      args: 'run start:dev',
+      args: 'run start:prod',
     },
   ],
 };
