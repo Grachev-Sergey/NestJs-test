@@ -27,17 +27,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       throw new HttpException('Email is used', HttpStatus.BAD_REQUEST);
     }
 
-    // const newUser = new User();
-    // newUser.email = email;
-    // newUser.password = bcryptjs.hashSync(password, config.salt);
-    // const tokens = await this.utils.generateTokens(newUser.id);
-    // newUser.refreshToken = tokens.refreshToken;
-    // newUser.activationLink = uuid.v4();
-    // const user = await this.userRepository.save(newUser);
-    // delete user.password;
-    // delete user.refreshToken;
-    // return { user, tokens };
-
     const newUser = new User();
     newUser.email = email;
     newUser.password = bcryptjs.hashSync(password, config.salt);

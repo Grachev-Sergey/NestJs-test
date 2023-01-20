@@ -72,7 +72,6 @@ export class User {
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
     nullable: false,
   })
-  // do it nullable true
   @Column({ type: 'varchar', select: false, nullable: true })
   refreshToken: string;
 
